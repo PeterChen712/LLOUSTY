@@ -28,29 +28,22 @@ public class DatabaseConfig {
             pstmt.setString(3, name);
             pstmt.setString(4, password);
 
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setHeaderText(null);
-
             try {
                 if (email.isEmpty()) {
-                    alert.setContentText("Please enter your email");
-                    alert.showAndWait();
+                    AlertNotif.setAlertWarning("Sign up Failed", null, "Please enter your email");
                     return false;
                 }
                 else if (name.isEmpty()) {
-                    alert.setContentText("Please enter your name");
-                    alert.showAndWait();
+                    AlertNotif.setAlertWarning("Sign up Failed", null, "Please enter your name");
                     return false;
                 }
                 else if (username.isEmpty()) {
-                    alert.setContentText("Please enter your username");
-                    alert.showAndWait();
+                    AlertNotif.setAlertWarning("Sign up Failed", null, "Please enter your username");
                     return false;
                     
                 }
                 else if (password.isEmpty()) {
-                    alert.setContentText("Please enter your password");
-                    alert.showAndWait();
+                    AlertNotif.setAlertWarning("Sign up Failed", null, "Please enter your password");
                     return false;
                 }
                 else{
@@ -62,11 +55,9 @@ public class DatabaseConfig {
                 if (e.getMessage().contains("UNIQUE constraint failed")) {
                     String constraint = e.getMessage().split(":")[1].trim();
                     if (constraint.contains("email")) {
-                        alert.setContentText("Email already exists!");
-                        alert.showAndWait();
+                        AlertNotif.setAlertWarning("Sign up Failed", null, "Email already exists!");
                     } else if (constraint.contains("username")) {
-                        alert.setContentText("Username already exists!");
-                        alert.showAndWait();
+                        AlertNotif.setAlertWarning("Sign up Failed", null, "Username already exists!");
                     }
                 } else {
                     System.out.println("Error: " + e.getMessage());
@@ -81,46 +72,33 @@ public class DatabaseConfig {
 
 
     public static boolean checkUsernamePassword(String username, String password) {
-        Alert alert = new Alert(AlertType.WARNING);
-        alert.setHeaderText(null);
-        alert.setTitle("Login Failed");
-        
-        Label warningUsername = new Label("Username is empty");
-        warningUsername.setId("warningText");
-        Label warningPassword = new Label("Password is empty");
-        warningPassword.setId("warningText");
-        
         if (username.isEmpty()) {
-            alert.setContentText("Please enter your username");
-            alert.showAndWait();
+            AlertNotif.setAlertWarning("Login Failed", null, "Please enter your username");
             return false;
         } else if (password.isEmpty()) {
-            alert.setContentText("Please enter your password");
-            alert.showAndWait();
+            AlertNotif.setAlertWarning("Login Failed", null, "Please enter your password");
             return false;
         } else {
             try (Connection conn = DriverManager.getConnection(DB_URL);
                 PreparedStatement pstmt = conn.prepareStatement(
-                    "SELECT COUNT(*) FROM account WHERE username=? AND password=?")) {
-                
+                "SELECT COUNT(*) FROM account WHERE username=? AND password=?")) {
+
                 pstmt.setString(1, username);
                 pstmt.setString(2, password);
-                
+
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next() && rs.getInt(1) > 0) {
+
                     return true;
                 } else {
-                    alert.setContentText("Invalid username or password");
-                    alert.showAndWait();
+                    AlertNotif.setAlertWarning("Login Failed", null, "Invalid username or password");
                     return false;
                 }
             } catch (SQLException e) {
                 System.out.println("Error: " + e.getMessage());
-                alert.setContentText("Database error: " + e.getMessage());
-                alert.showAndWait();
+                AlertNotif.setAlertWarning("Login Failed", null, "Database error " + e.getMessage());
                 return false;
             }
         }
     }
-    
 }
