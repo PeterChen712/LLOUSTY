@@ -2,9 +2,6 @@ package llousty.utils;
 
 
 import java.sql.*;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
 
 public class DatabaseConfig {
     private static final String DB_URL = "jdbc:sqlite:llousty.db";
