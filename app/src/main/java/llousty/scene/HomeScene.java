@@ -1,4 +1,4 @@
-package llousty.scene;
+package llousty.Scene;
 
 import javafx.stage.Stage;
 

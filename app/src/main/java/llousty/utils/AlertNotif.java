@@ -1,4 +1,4 @@
-package llousty.utils;
+package llousty.Utils;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;

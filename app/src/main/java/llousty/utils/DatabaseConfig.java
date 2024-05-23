@@ -1,4 +1,4 @@
-package llousty.utils;
+package llousty.Utils;
 
 
 import java.sql.*;

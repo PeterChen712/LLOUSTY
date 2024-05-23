@@ -1,4 +1,4 @@
-package llousty.utils;
+package llousty.Utils;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
