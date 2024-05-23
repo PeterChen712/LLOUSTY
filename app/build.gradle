@@ -1,0 +1,41 @@
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.14'
+}
+
+dependencies {
+    // Use JUnit Jupiter for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+
+    // This dependency is used by the application.
+    implementation 'com.google.guava:guava:31.1-jre'
+    implementation 'org.openjfx:javafx-controls:17.0.0'
+
+    implementation 'org.xerial:sqlite-jdbc:3.34.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+javafx {
+    version = "17.0.9"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+}
+
+
+
+application {
+    mainClassName = 'llousty.App'
+}

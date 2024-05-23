@@ -1,0 +1,41 @@
+.root {
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: stretch;
+    -fx-background-image: url("/images/back.jpg");
+}
+
+
+.imageView {
+    -fx-image: url("/images/logo2.png");
+}
+
+.text {
+    -fx-font-family: 'Times New Roman';
+    -fx-font-fill: rgb(8, 8, 8);
+    -fx-font-size: 20px;
+}
+
+.textfield {
+    -fx-max-width: 300px;   /* Mengatur lebar preferensi textField */
+    -fx-max-height: 25;    /* Mengatur tinggi minimum textField */
+    -fx-padding: 10px;       /* Mengatur padding di dalam textField */
+    -fx-font-size: 15px;     /* Mengatur ukuran font textField */
+}
+
+
+
+.labelLogin {
+    -fx-font-weight: bold;
+    -fx-font-family: 'Arial';
+    -fx-font-fill: rgb(8, 8, 8);
+    -fx-font-size: 100px;
+}
+
+.textDaftar {
+    -fx-font-fill: rgb(0, 0, 0);
+    -fx-font-size: 20px;
+}
+
+.HyperLink {
+    -fx-font-size: 10px;
+}
