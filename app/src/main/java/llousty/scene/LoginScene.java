@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import llousty.App;
 import llousty.config.DbConfig;
 import llousty.controller.UserController;
 import llousty.controller.UserController;
@@ -85,7 +86,7 @@ public class LoginScene {
         layout.setSpacing(50);
         layout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(layout, 750, 500);
+        Scene scene = new Scene(layout, App.getWidth(), App.getHeight());
         scene.getStylesheets().add("styles.css");
         stage.setScene(scene);
         stage.setTitle("Login");

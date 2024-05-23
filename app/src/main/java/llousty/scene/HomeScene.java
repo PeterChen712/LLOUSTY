@@ -3,6 +3,8 @@ package llousty.scene;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import llousty.App;
+import llousty.components.navbar;
 
 public class HomeScene {
     Stage stage;
@@ -11,10 +13,11 @@ public class HomeScene {
         this.stage = stage;
     }
 
+
     public void show() {
         VBox vBox = new VBox();
 
-        Scene scene = new Scene(vBox, 750, 500);
+        Scene scene = new Scene(navbar.setNavbar(), App.getWidth(), App.getHeight());
         scene.getStylesheets().add("styles.css");
         stage.setScene(scene);
         stage.setTitle("Login");

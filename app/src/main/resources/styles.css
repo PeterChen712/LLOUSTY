@@ -39,3 +39,35 @@
 .HyperLink {
     -fx-font-size: 10px;
 }
+
+
+
+.navbar{
+    /* -fx-background-color: transparent; */
+    -fx-background-color: #ffffff; 
+    -fx-border-color: transparent;
+    /* -fx-border-width: 10; */
+    -fx-font-size: 12px; 
+    -fx-font-weight: bold;
+    -fx-pref-width: 75px; 
+    /* -fx-pref-height: 10px; */
+}
+
+.navbar:hover{
+    -fx-background-color: #a79f9f; 
+
+}
+/* Style untuk TextField */
+.searchBar {
+    -fx-background-radius: 20 0 0 20;
+    -fx-background-color: -fx-control-inner-background;
+    -fx-font-size: 14px;
+    -fx-pref-width: 350px; 
+
+}
+
+/* Style untuk Button */
+.searchButton {
+    -fx-background-radius: 0 20 20 0;
+    -fx-background-color: -fx-control-inner-background;
+}

@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import llousty.App;
 import llousty.controller.UserController;
 
 public class RegistScene {
@@ -72,11 +73,10 @@ public class RegistScene {
         VBox layout = new VBox(labelRegist, status, nama, email, userName, passWord, btnRegist, hBox);
         layout.setAlignment(Pos.CENTER);
         layout.setSpacing(15);
-        Scene scene = new Scene(layout, 750, 500);
+        Scene scene = new Scene(layout, App.getWidth(), App.getHeight());
         scene.getStylesheets().add("styles.css");
 
         stage.setScene(scene);
-        stage.setTitle("Regist");
         stage.show();
     }
 }
