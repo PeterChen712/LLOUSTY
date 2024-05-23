@@ -1,11 +1,12 @@
 package llousty.Scene;
 
-import javafx.stage.Stage;
+import llousty.Abstract.abstractScene;
 
-public class HomeScene {
-    private Stage stage;
+public class HomeScene extends abstractScene{
 
-    public HomeScene(Stage stage) {
-        this.stage = stage;
+    @Override
+    public void show() {
+        
     }
+
 }

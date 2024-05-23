@@ -2,7 +2,7 @@ package llousty.Abstract;
 
 import javafx.stage.Stage;
 
-abstract class Scene {
+public abstract class abstractScene {
     protected Stage stage;
-    abstract void show();
+    public abstract void show();
 }
