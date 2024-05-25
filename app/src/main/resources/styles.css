@@ -1,43 +1,81 @@
 .root {
     -fx-background-repeat: no-repeat;
     -fx-background-size: stretch;
-    -fx-background-image: url("/images/back.jpg");
+    -fx-background-image: url("/images/logo/back.jpg");
 }
 
-
-.imageView {
-    -fx-image: url("/images/logo2.png");
-}
-
-.text {
-    -fx-font-family: 'Times New Roman';
-    -fx-font-fill: rgb(8, 8, 8);
-    -fx-font-size: 20px;
-}
+/* .imageView {
+    -fx-image: url("/images/logo3.png");
+} */
 
 .textfield {
-    -fx-max-width: 300px;   /* Mengatur lebar preferensi textField */
-    -fx-max-height: 25;    /* Mengatur tinggi minimum textField */
-    -fx-padding: 10px;       /* Mengatur padding di dalam textField */
-    -fx-font-size: 15px;     /* Mengatur ukuran font textField */
+    -fx-max-width: 350px;   /* Mengatur lebar preferensi textField */
+    -fx-max-height: 25;    /* Mengatur tinggi minimum textField */   
+    -fx-background-color: #FFFFFF; /* Warna latar belakang */
+    -fx-border-color:#713851; /* Warna border */
+    -fx-border-radius: 10; /* Radius sudut border */
+    -fx-background-radius: 10; /* Radius sudut background */
+    -fx-padding: 10; /* Padding di dalam TextField */
+    -fx-text-fill: #542a3c; /* Warna teks */
+    -fx-font-size: 15px; /* Ukuran font */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.434), 5, 0.3, 2, 2);
 }
 
-
-
-.labelLogin {
+.labelLoginAndRegist {
     -fx-font-weight: bold;
     -fx-font-family: 'Arial';
-    -fx-font-fill: rgb(8, 8, 8);
-    -fx-font-size: 100px;
+    -fx-font-fill: #713851;
+    -fx-font-size: 30px;
 }
 
-.textDaftar {
+/* .mottoText {
+    -fx-font-weight: bold;
+    -fx-font-family: 'Times New Roman';
     -fx-font-fill: rgb(0, 0, 0);
-    -fx-font-size: 20px;
+    -fx-font-size: 15px;
+} */
+
+.textStatus {
+    -fx-font-fill: rgb(0, 0, 0);
+    -fx-font-size: 15px;
+    
+}
+
+.textHyper {
+    -fx-font-size: 15px;
+    -fx-font-fill: rgb(0, 0, 0);
+   
 }
 
 .HyperLink {
-    -fx-font-size: 10px;
+    -fx-font-size: 20px;
+    -fx-text-fill:  #713851;
+}
+
+.elementPersegi {
+    -fx-fill: #DD9FBB;
+} 
+
+.buttonLoginandRegist {
+    -fx-max-width: 300px;   /* Mengatur lebar preferensi textField */
+    -fx-max-height: 25;
+    -fx-font-weight: bold;
+    -fx-background-color: #DD9FBB; /* Warna latar belakang */
+    -fx-text-fill: #000000; /* Warna teks */
+    -fx-font-size: 16px; /* Ukuran font */
+    -fx-background-radius: 10; /* Radius sudut background */
+    -fx-border-radius: 10; /* Radius sudut border */
+    -fx-padding: 10 20 10 20; /* Padding di dalam Button */
+    -fx-border-color: transparent; /* Warna border */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 5, 0.3, 2, 2);
+}
+
+.button:hover {
+    -fx-background-color:#603045; /* Warna latar belakang saat di-hover */
+}
+
+.button:pressed {
+    -fx-background-color: #462231; /* Warna latar belakang saat di-klik */
 }
 
 

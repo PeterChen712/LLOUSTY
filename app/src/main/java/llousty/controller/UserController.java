@@ -1,6 +1,5 @@
 package llousty.controller;
 
-
 import java.io.File;
 import java.io.InputStream;
 import java.sql.ResultSet;
@@ -14,27 +13,52 @@ import llousty.Utils.PasswordHasher;
 import llousty.config.DbConfig;
 import java.io.ByteArrayInputStream;
 
-
 public class UserController extends DbConfig {
-    //READ
-    public static boolean validasiLogin(String username, String password) {
+    // READ
+    public static User validasiLogin(String username, String password) {
         getConnection();
-        query = "SELECT username, password FROM user WHERE username =? AND password=?";
+        query = "SELECT * FROM user WHERE username =? AND password=?";
         try {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, PasswordHasher.doHashing(password)); // menghasing inputan dan memngecek apakah sama di database
+            preparedStatement.setString(2, PasswordHasher.doHashing(password)); // menghasing inputan dan memngecek
+                                                                                // apakah sama di database
             try (ResultSet login = preparedStatement.executeQuery()) {
-                return login.next();
+                if (login.next()) {
+                    int id = login.getInt("id");
+                    User user = new User(id);
+                    return user;
+                }
             }
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
 
     }
 
-    //CREATE
+    // READ USERNAME OR EMAIL THAT THEY ALREADY TAKEN
+    public static boolean isUsernameOrEmailTaken(String username, String email) {
+        query = "SELECT COUNT(*) FROM user WHERE username = ? OR email = ?";
+        try {
+            getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, email);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // CREATE
     public static boolean registAdd(String name, String username, String password, String email) {
         query = "INSERT INTO user (name,  username, password, email) VALUES (?,?,?,?)";
         try {
@@ -42,7 +66,8 @@ public class UserController extends DbConfig {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, username);
-            preparedStatement.setString(3, PasswordHasher.doHashing(password));// password yang masuk ke database di hashing
+            preparedStatement.setString(3, PasswordHasher.doHashing(password));// password yang masuk ke database di
+                                                                               // hashing
             preparedStatement.setString(4, email);
             preparedStatement.executeUpdate();
             return true;
@@ -52,14 +77,16 @@ public class UserController extends DbConfig {
         return false;
     }
 
-    //CREATE
-    public static boolean updateUser(int id, String name, String username, String password, String email, String alamat, String phone, String gender, InputStream photoFile) {
+    // CREATE
+    public static boolean updateUser(int id, String name, String username, String password, String email, String alamat,
+            String phone, String gender, InputStream photoFile) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image");
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.jpeg");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png",
+                "*.jpeg");
         fileChooser.getExtensionFilters().add(extFilter);
         File selectedFile = fileChooser.showOpenDialog(null);
-    
+
         if (selectedFile != null) {
             try {
                 getConnection();
@@ -83,7 +110,7 @@ public class UserController extends DbConfig {
         return false;
     }
 
-    //READ
+    // READ
     public static User showUserProfile(int id) throws SQLException {
         User user = null;
         query = "SELECT * FROM user WHERE id=?";
@@ -101,7 +128,8 @@ public class UserController extends DbConfig {
                 String phone = resultSet.getString("phone");
                 String gender = resultSet.getString("gender");
                 byte[] photoProfile = resultSet.getBytes("photo_profile");
-                user = new User(id, name, username, password, email, alamat, phone, gender, new ByteArrayInputStream(photoProfile));
+                user = new User(id, name, username, password, email, alamat, phone, gender,
+                        new ByteArrayInputStream(photoProfile));
             }
         } catch (Exception e) {
             e.printStackTrace();

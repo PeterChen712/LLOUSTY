@@ -1,10 +1,15 @@
 package llousty.Models;
 
 import java.io.InputStream;
+
 public class User extends Model {
     String name, username, password, email, alamat, phone, gender;
     InputStream photoFile;
-    
+
+    public User(int id) {
+        super(id);
+    }
+
     public String getName() {
         return name;
     }
@@ -69,7 +74,8 @@ public class User extends Model {
         this.photoFile = photoFile;
     }
 
-    public User(int id, String name, String username, String password, String email, String alamat, String phone, String gender, InputStream photoFile) {
+    public User(int id, String name, String username, String password, String email, String alamat, String phone,
+            String gender, InputStream photoFile) {
         super(id);
         this.name = name;
         this.username = username;
@@ -81,5 +87,4 @@ public class User extends Model {
         this.photoFile = photoFile;
     }
 
-    
 }
