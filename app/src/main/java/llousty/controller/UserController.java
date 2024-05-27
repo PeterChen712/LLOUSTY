@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -77,15 +79,9 @@ public class UserController extends DbConfig {
         return false;
     }
 
-    // CREATE
+    // UPDATE
     public static boolean updateUser(int id, String name, String username, String password, String email, String alamat,
-            String phone, String gender, InputStream photoFile) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Image");
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png",
-                "*.jpeg");
-        fileChooser.getExtensionFilters().add(extFilter);
-        File selectedFile = fileChooser.showOpenDialog(null);
+        String phone, String gender, File selectedFile) throws FileNotFoundException {
 
         if (selectedFile != null) {
             try {
@@ -99,7 +95,7 @@ public class UserController extends DbConfig {
                 preparedStatement.setString(5, alamat);
                 preparedStatement.setString(6, phone);
                 preparedStatement.setString(7, gender);
-                preparedStatement.setBinaryStream(8, photoFile);
+                preparedStatement.setBinaryStream(8, new FileInputStream(selectedFile), (int) selectedFile.length());
                 preparedStatement.setInt(9, id);
                 int rowsUpdated = preparedStatement.executeUpdate();
                 return rowsUpdated > 0;
@@ -107,11 +103,14 @@ public class UserController extends DbConfig {
                 e.printStackTrace();
             }
         }
+        else{
+            //TES
+        }
         return false;
     }
 
     // READ
-    public static User showUserProfile(int id) throws SQLException {
+    public static User getUserById(int id) throws SQLException {
         User user = null;
         query = "SELECT * FROM user WHERE id=?";
         try {
@@ -127,9 +126,15 @@ public class UserController extends DbConfig {
                 String alamat = resultSet.getString("alamat");
                 String phone = resultSet.getString("phone");
                 String gender = resultSet.getString("gender");
-                byte[] photoProfile = resultSet.getBytes("photo_profile");
-                user = new User(id, name, username, password, email, alamat, phone, gender,
-                        new ByteArrayInputStream(photoProfile));
+                byte[] photoProfileByte = resultSet.getBytes("photo_profile");
+                ImageView photoProfile;
+                if (photoProfileByte != null) {
+                    photoProfile = new ImageView(new Image(new ByteArrayInputStream(photoProfileByte)));
+                }
+                else{
+                    photoProfile = new ImageView("/images/default/nullProfile.jpg");
+                }
+                user = new User(id, name, username, password, email, alamat, phone, gender, photoProfile);
             }
         } catch (Exception e) {
             e.printStackTrace();

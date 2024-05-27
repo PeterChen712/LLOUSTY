@@ -16,4 +16,14 @@ public class imageSet {// untuk panggil gambar agar cukup 1 obj gamabr saja dipa
         return imageView;
     }
 
+    public static ImageView setImages(ImageView image, double width, double height){
+        image.setFitWidth(width);
+        image.setFitHeight(height);
+        return image;
+    }
+
+    public static ImageView setImages(ImageView image){
+        return image;
+    }
+
 }

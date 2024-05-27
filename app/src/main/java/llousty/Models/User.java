@@ -1,14 +1,11 @@
 package llousty.Models;
 
-import java.io.InputStream;
+
+import javafx.scene.image.ImageView;
 
 public class User extends Model {
-    String name, username, password, email, alamat, phone, gender;
-    InputStream photoFile;
-
-    public User(int id) {
-        super(id);
-    }
+    private String name, username, password, email, alamat, phone, gender;
+    private ImageView photoFile;
 
     public String getName() {
         return name;
@@ -66,16 +63,16 @@ public class User extends Model {
         this.gender = gender;
     }
 
-    public InputStream getPhotoFile() {
+    public ImageView getPhotoFile() {
         return photoFile;
     }
 
-    public void setPhotoFile(InputStream photoFile) {
+    public void setPhotoFile(ImageView photoFile) {
         this.photoFile = photoFile;
     }
 
     public User(int id, String name, String username, String password, String email, String alamat, String phone,
-            String gender, InputStream photoFile) {
+            String gender, ImageView photoFile) {
         super(id);
         this.name = name;
         this.username = username;
@@ -85,6 +82,10 @@ public class User extends Model {
         this.phone = phone;
         this.gender = gender;
         this.photoFile = photoFile;
+    }
+
+    public User(int id) {
+        super(id);
     }
 
 }

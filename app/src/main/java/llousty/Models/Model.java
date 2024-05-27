@@ -1,7 +1,7 @@
 package llousty.Models;
 
 public class Model {
-    int id;
+    protected int id;
 
     public Model(int id) {
         this.id = id;
@@ -14,6 +14,4 @@ public class Model {
     public void setId(int id) {
         this.id = id;
     }
-
-    
 }

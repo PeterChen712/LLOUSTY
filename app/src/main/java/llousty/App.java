@@ -1,9 +1,12 @@
 package llousty;
 
+import java.sql.SQLException;
+
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import llousty.config.DbConfig;
+import llousty.scene.HomeScene;
 import llousty.scene.LoginScene;
 
 public class App extends Application {
@@ -21,9 +24,11 @@ public class App extends Application {
     private final Image icon = new Image(getClass().getResourceAsStream("/images/logo/logo2.png"));
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws SQLException {
         LoginScene firstScene = new LoginScene(primaryStage);
-        firstScene.show();
+        // firstScene.show();
+        HomeScene homeScene = new HomeScene(primaryStage);
+        homeScene.show(11);
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("LLOUSTY");

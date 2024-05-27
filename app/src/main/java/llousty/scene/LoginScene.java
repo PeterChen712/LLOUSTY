@@ -1,5 +1,7 @@
 package llousty.scene;
 
+import java.sql.SQLException;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -72,7 +74,12 @@ public class LoginScene {
                 int id = user.getId();
                 status.setText("Berhasil");
                 HomeScene homeScene = new HomeScene(stage);
-                homeScene.show();
+                try {
+                    homeScene.show(id);
+                } catch (SQLException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
             } else {
                 status.setText("username atau password salah");
             }

@@ -44,7 +44,6 @@
 .textHyper {
     -fx-font-size: 15px;
     -fx-font-fill: rgb(0, 0, 0);
-   
 }
 
 .HyperLink {
@@ -70,42 +69,213 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 5, 0.3, 2, 2);
 }
 
-.button:hover {
-    -fx-background-color:#603045; /* Warna latar belakang saat di-hover */
+
+
+
+/* CSS FOR NAVBAR HERE*/
+.textBrand{
+    -fx-font-family: "Belleza";
+    -fx-pref-width: 75px; 
+    -fx-pref-height: 30px;
 }
 
-.button:pressed {
-    -fx-background-color: #462231; /* Warna latar belakang saat di-klik */
+.backBrand{
+    -fx-background-color: #DD9FBB; 
+    -fx-pref-width: 750px; 
+    -fx-pref-height: 30px;
 }
 
-
+.backNavbar{
+    -fx-background-color:#F1F1F1; 
+    -fx-pref-width: 750px; 
+    -fx-pref-height: 50px;
+}
 
 .navbar{
     /* -fx-background-color: transparent; */
-    -fx-background-color: #ffffff; 
+    -fx-font-family: "Times new roman";
+    -fx-text-fill: #000000;
+    -fx-background-color:#F1F1F1; 
     -fx-border-color: transparent;
     /* -fx-border-width: 10; */
-    -fx-font-size: 12px; 
+    -fx-font-size: 16px; 
     -fx-font-weight: bold;
-    -fx-pref-width: 75px; 
-    /* -fx-pref-height: 10px; */
+    -fx-pref-width: 100px; 
+    -fx-pref-height: 50px;
 }
 
 .navbar:hover{
     -fx-background-color: #a79f9f; 
-
 }
-/* Style untuk TextField */
+
 .searchBar {
     -fx-background-radius: 20 0 0 20;
-    -fx-background-color: -fx-control-inner-background;
+    -fx-background-radius: 20 0 0 20;
+    /* -fx-background-color: -fx-control-inner-background; */
     -fx-font-size: 14px;
-    -fx-pref-width: 350px; 
-
+    -fx-pref-width: 340px;
+    -fx-pref-height: 40px;
+    /* -fx-border-color: #000000;  */
+    /* -fx-border-width: 2;  */
 }
 
-/* Style untuk Button */
 .searchButton {
     -fx-background-radius: 0 20 20 0;
-    -fx-background-color: -fx-control-inner-background;
+    -fx-background-color:#ffffff;
+    -fx-pref-width: 40px; 
+    -fx-pref-height: 40px;
 }
+
+.searchButton:hover {
+    -fx-background-color: #a79f9f; 
+}
+
+.navbarIcon{
+    -fx-border-width: 0;
+    -fx-background-color:#F1F1F1;
+    -fx-pref-width: 60px; 
+}
+
+/* END OF CSS NAVBAR */
+
+
+
+
+/* CSS FOR HOMESCENE */
+
+.category{
+    -fx-font-family: "Estedad-VF";
+    -fx-background-radius: 20; /* Radius lengkungan sudut */
+    -fx-text-fill: #000000; /* Warna teks */
+    -fx-padding: 0px 20px; /* Padding atas/bawah 5px, kiri/kanan 20px */
+    -fx-border-width: 0; /* Tidak ada border */
+    -fx-font-size: 16px;
+}
+
+.category:hover{
+    -fx-background-color: #a79f9f; 
+}
+
+.productBackground{
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 5, 0.3, 0, 5);
+    -fx-pref-width: 150px; 
+    -fx-pref-height: 150px;
+    -fx-background-color: #ffffff; 
+}
+
+.productName{
+    -fx-font-family: "Cabin";
+}
+
+.productPrice{
+    -fx-font-family: "Cabin";
+    -fx-text-fill: #ED5A97; 
+}
+
+.productBox{
+    -fx-border-width: 1px; 
+    -fx-border-color: #000000;
+    -fx-border-radius: 5px;
+    -fx-pref-width: 150px; 
+    -fx-pref-height: 150px;
+    -fx-background-color:#F1F1F1;
+}
+
+.mainContent{
+    -fx-background-color:#ffffff;
+}
+
+/* END OF CSS HOMESCENE */
+
+
+
+
+/* CSS FOR PRODUCT */
+
+.productName{
+    -fx-font-family: "Inter";
+    -fx-font-size: 20px;
+}
+
+.descriptionText{
+    -fx-pref-width: 400px; 
+    -fx-pref-height: 150px;
+    -fx-border-color: #000000;
+}
+
+.variantLabel{
+    -fx-font-family: "Estedad-VF";
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.variantType{
+    -fx-padding: 5px 2px; /* Padding atas/bawah 5px, kiri/kanan 20px */
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.labelTitleComments{
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.profileMenu{
+    -fx-border-width: 0;
+    -fx-background-color:#ffffff;
+    -fx-pref-width: 60px; 
+}
+
+.countLabel {
+    -fx-pref-width: 300px;
+    -fx-pref-height: 34px;
+    -fx-alignment: center;
+    -fx-border-style: solid;
+    -fx-border-color: #DD9FBB;
+    -fx-border-width: 3;
+    /* -fx-border-insets: 2 0 2 0; atas kanan bawah kiri */
+}
+
+.quantity {
+    /* -fx-background-radius: 20 0 0 20; */
+    -fx-background-color: #ffffff;
+    -fx-border-color: #DD9FBB;
+    -fx-border-width: 2;
+    -fx-pref-height: 30px;
+    -fx-pref-width: 30px;
+}
+
+.addToCart{
+    -fx-background-color: #FFD9E6;
+    -fx-border-radius: 2;
+    -fx-padding: 5px;
+    -fx-font-weight: bold;
+    -fx-font-family: Arial, sans-serif;
+    -fx-pref-width: 368px;
+    -fx-alignment: center;
+}
+
+
+.labelTitleComments{
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+/* END OF CSS PRODUCT */
+
+
+
+/* CSS FOR CARR SCENE */
+
+.custom-checkbox .box {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 0;
+}
+
+.custom-checkbox:selected .box {
+    -fx-background-color: #ff99cc;
+}
+
+
+
+/* END OF CSS CART */
