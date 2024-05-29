@@ -48,7 +48,7 @@ public class LoginScene {
         Label labelLogin = new Label("Login");
         labelLogin.getStyleClass().add("labelLoginAndRegist");
 
-        Label status = new Label();
+        Label status = new Label("Anda Belum Login");
         status.getStyleClass().add("textStatus");
 
         TextField inUser = new TextField();

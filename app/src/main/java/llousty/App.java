@@ -3,6 +3,7 @@ package llousty;
 import java.sql.SQLException;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import llousty.config.DbConfig;
@@ -28,6 +29,7 @@ public class App extends Application {
         LoginScene firstScene = new LoginScene(primaryStage);
         // firstScene.show();
         HomeScene homeScene = new HomeScene(primaryStage);
+        // homeScene.show(11);
         homeScene.show(11);
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(icon);
@@ -39,4 +41,5 @@ public class App extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
 }
