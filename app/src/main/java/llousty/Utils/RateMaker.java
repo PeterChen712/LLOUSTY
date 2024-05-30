@@ -8,7 +8,7 @@ public class RateMaker {
             return "Rate: " + String.format("%.1f/5", average);
         }
         else{
-            return "Rate: -/5";
+            return "Rate: -";
         }
     }
 }

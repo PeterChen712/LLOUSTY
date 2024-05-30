@@ -276,6 +276,216 @@
     -fx-background-color: #ff99cc;
 }
 
+.gap{
+    -fx-background-color: white;
+    -fx-pref-height: 5px;
+    -fx-pref-width: 450px;
+}
+
+.cartLayout{
+    -fx-pref-width: 450px;
+}
+
+.productNameCart{
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+
+}
+
+.sellerName{
+    -fx-font-weight: bold;
+}
+
+.variantLabelCart{
+    -fx-font-weight: bold;
+}
+
+.variantTypeCart{
+    -fx-background-color: #DD9FBB; /* Warna latar belakang */
+    -fx-font-weight: bold; /* Teks tebal */
+    -fx-padding: 0px 2px;
+    -fx-background-radius: 5px; /* Radius sudut label */
+}
+
+.totalPrice{
+    -fx-text-fill: #DD9FBB;
+}
+
+.totalUserPay{
+    -fx-text-fill: #DD9FBB;
+    -fx-font-weight: bold;
+}
+
+
+.userInformation{
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-pref-width: 275px;
+    -fx-pref-height: 80px;
+}
+
+/* .userLayout{
+    -fx-background-color: #F1F1F1;
+    -fx-pref-width: 350px;
+    -fx-pref-height: 50px;
+} */
+
+.paymentLabel{
+    -fx-font-weight: bold; /* Teks tebal */
+    -fx-font-size: 16px;
+}
+
+.payment{
+    -fx-background-color: #D9D9D9;
+    -fx-background-radius: 3; /* Radius lengkungan sudut */
+    -fx-text-fill: #000000; /* Warna teks */
+    -fx-padding: 0px 20px; /* Padding atas/bawah 5px, kiri/kanan 20px */
+    -fx-border-width: 0; /* Tidak ada border */
+    -fx-font-size: 14px;
+}
+
+
+
+.pay {
+    /* -fx-background-color: transparent; */
+    -fx-background-color: #DE9FBC; 
+    /* -fx-border-color: transparent; */
+    -fx-border-width: 10;
+    -fx-font-size: 16px; 
+    -fx-font-weight: bold;
+    -fx-pref-width: 150px; 
+    -fx-pref-height: 40px;
+    -fx-border-width: 2px; /* Ketebalan border 2 piksel */
+    -fx-border-color: black; /* Warna border hitam */
+
+}
+
+.pay:hover {
+    /* -fx-background-color: transparent; */
+    /* -fx-background-color: #aaa4a4; */
+    -fx-border-color: rgb(0, 0, 0);
+    /* -fx-border-width: 0; */
+}
+
+.pay:pressed {
+    -fx-border-color: rgb(0, 0, 0);
+    -fx-scale-x: 0.95; 
+    -fx-scale-y: 0.95;
+}
+
+
+.transactionBarBg{
+    -fx-background-color: #ff0000;
+}
 
 
 /* END OF CSS CART */
+
+
+
+
+/* CSS FOR TRANSACTION HERE */
+
+
+/* Gaya untuk TableView */
+.table-view {
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: #c4c4c4;
+    -fx-border-width: 1px;
+}
+
+/* Gaya untuk header kolom */
+.table-view .column-header {
+    -fx-background-color: #e0e0e0;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+/* Gaya untuk sel dalam kolom */
+.table-view .table-cell {
+    -fx-text-fill: #333333;
+    -fx-padding: 5px;
+}
+
+/* Gaya untuk sel yang sedang dipilih */
+.table-view .table-row-cell:selected {
+    -fx-background-color: #b3d9ff;
+}
+
+/* Gaya untuk sel dengan konten yang terpotong */
+.table-view .table-cell:overflow-control {
+    -fx-text-overrun: ellipsis;
+}
+
+/* Gaya untuk mengatur lebar kolom */
+/* .table-view .column-header,
+.table-view .table-column {
+    -fx-pref-width: 50; 
+} */
+
+.deleteButton{
+    -fx-pref-width: 5px; 
+    -fx-pref-height: 5px;
+}
+
+/* END OF CSS TRANSACTION */
+
+
+
+
+
+/* CSS FOR SEARCH SCENE */
+
+.searchLabel {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333;
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 10px;
+    -fx-pref-width: 375px;
+    -fx-pref-height: 50px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.2, 0, 0);
+    -fx-alignment: center;
+}
+
+.searchLabel:hover {
+    -fx-background-color: #e0e0e0;
+    -fx-cursor: hand;
+}
+
+
+.gap2{
+    -fx-background-color: white;
+    -fx-pref-height: 5px;
+    -fx-pref-width: 750px;
+}
+
+
+.profileMenuChat {
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+    -fx-background-color: transparent;
+}
+
+
+/* END OF CSS SERACH */
+
+
+
+
+/* CSS FOR CHAT SCENE HERE */
+
+.textTyped{
+    -fx-background-color: rgba(255, 182, 193, 0.862);
+    -fx-background-radius: 15;
+    -fx-padding: 5 10 5 10;
+    -fx-max-width: 500; 
+    -fx-text-overrun: word-ellipsis;
+}
+
+.textTypedTarget{
+    -fx-background-color: rgba(136, 122, 124, 0.5);
+    -fx-background-radius: 15;
+    -fx-padding: 5 10 5 10;
+    -fx-max-width: 500; 
+    -fx-text-overrun: word-ellipsis;
+}

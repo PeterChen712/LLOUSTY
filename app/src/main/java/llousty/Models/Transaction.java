@@ -1,40 +1,29 @@
 package llousty.Models;
 
 public class Transaction extends Model{
-    private int productId;
     private int userId;
-    private int stockPurchased;
     private String date;
     private double totalPrice;
     private String payment;
-    
-    public Transaction(int id, int productId, int userId, int stockPurchased, String date, double totalPrice,
-            String payment) {
+    private String productName;
+    private String seller;
+    private String status;
+    public Transaction(int id, int userId, String date, double totalPrice, String payment, String productName,
+            String seller, String status) {
         super(id);
-        this.productId = productId;
         this.userId = userId;
-        this.stockPurchased = stockPurchased;
         this.date = date;
         this.totalPrice = totalPrice;
         this.payment = payment;
-    }
-    public int getProductId() {
-        return productId;
-    }
-    public void setProductId(int productId) {
-        this.productId = productId;
+        this.productName = productName;
+        this.seller = seller;
+        this.status = status;
     }
     public int getUserId() {
         return userId;
     }
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-    public int getStockPurchased() {
-        return stockPurchased;
-    }
-    public void setStockPurchased(int stockPurchased) {
-        this.stockPurchased = stockPurchased;
     }
     public String getDate() {
         return date;
@@ -54,6 +43,23 @@ public class Transaction extends Model{
     public void setPayment(String payment) {
         this.payment = payment;
     }
-    
+    public String getProductName() {
+        return productName;
+    }
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+    public String getSeller() {
+        return seller;
+    }
+    public void setSeller(String seller) {
+        this.seller = seller;
+    }
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
 }

@@ -1,15 +1,15 @@
 package llousty.controller;
 
 import java.io.File;
-import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 import llousty.Models.User;
 import llousty.Utils.PasswordHasher;
 import llousty.config.DbConfig;
@@ -142,4 +142,42 @@ public class UserController extends DbConfig {
         return user;
     }
 
+    //READ 
+    public static List<User> getAllUsers() throws SQLException {
+        List<User> users = new ArrayList<>();
+        query = "SELECT * FROM user";
+        try {
+            getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String username = resultSet.getString("username");
+                String password = resultSet.getString("password");
+                String email = resultSet.getString("email");
+                String alamat = resultSet.getString("alamat");
+                String phone = resultSet.getString("phone");
+                String gender = resultSet.getString("gender");
+                byte[] photoProfileByte = resultSet.getBytes("photo_profile");
+                ImageView photoProfile;
+                if (photoProfileByte != null) {
+                    photoProfile = new ImageView(new Image(new ByteArrayInputStream(photoProfileByte)));
+                }
+                else{
+                    photoProfile = new ImageView("/images/default/nullProfile.jpg");
+                }
+                User user = new User(id, name, username, password, email, alamat, phone, gender, photoProfile);
+                users.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+
 }
+
+
+

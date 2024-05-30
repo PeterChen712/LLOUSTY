@@ -20,6 +20,8 @@ import llousty.Utils.imageSet;
 import llousty.controller.UserController;
 import llousty.scene.CartScene;
 import llousty.scene.HomeScene;
+import llousty.scene.SearchScene;
+import llousty.scene.TransactionScene;
 
 public class Navbar {
     private static String searchText = "Search";
@@ -74,7 +76,11 @@ public class Navbar {
         ordersMenu.getStyleClass().add("navbar");
         ordersMenu.setAlignment(Pos.CENTER);
         ordersMenu.setOnMouseClicked(event -> {
-            System.out.println("order Label diklik!");
+            try {
+                new TransactionScene(stage).show(id);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         });
 
         //tombol cari
@@ -88,7 +94,11 @@ public class Navbar {
         searchButton.getStyleClass().add("searchButton"); 
         searchButton.setOnAction(e->{
             setSearchText(searchBar.getText());
-            // ke scene lain
+            try {
+                new SearchScene(stage).show(id);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         });
         
         searchBar.setOnKeyPressed(e ->{

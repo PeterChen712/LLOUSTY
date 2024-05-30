@@ -1,11 +1,13 @@
 package llousty;
 
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import llousty.config.DbConfig;
+import llousty.scene.ChatScene;
 import llousty.scene.HomeScene;
 import llousty.scene.LoginScene;
 
@@ -24,11 +26,15 @@ public class App extends Application {
     private final Image icon = new Image(getClass().getResourceAsStream("/images/logo/logo2.png"));
 
     @Override
-    public void start(Stage primaryStage) throws SQLException {
+    public void start(Stage primaryStage) throws SQLException, FileNotFoundException {
         LoginScene firstScene = new LoginScene(primaryStage);
         // firstScene.show();
         HomeScene homeScene = new HomeScene(primaryStage);
-        homeScene.show(11);
+        // homeScene.show(11);
+
+        ChatScene chatScene = new ChatScene(primaryStage);
+        chatScene.show(11, 12);
+
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("LLOUSTY");

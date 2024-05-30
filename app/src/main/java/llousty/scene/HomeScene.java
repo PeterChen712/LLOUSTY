@@ -30,7 +30,7 @@ public class HomeScene {
     }
 
 
-    protected static GridPane showCategory(Stage stage, String filter, int id) throws SQLException{
+    private static GridPane showCategory(Stage stage, String filter, int id) throws SQLException{
         List<Product> listProducts = ProductController.getAllProduct();
 
         GridPane productLayout = new GridPane();
@@ -42,7 +42,7 @@ public class HomeScene {
         int row = 0;
 
         for (Product product : listProducts) {
-            if (product.getCategory().equals(filter)) {
+            if (product.getCategory().equals(filter)) { 
                 
                 ImageView productImage = imageSet.setImages(product.getProductPhoto(), 150, 150);
                 productImage.setPreserveRatio(true);

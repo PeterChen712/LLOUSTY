@@ -61,24 +61,24 @@ public class VariantController extends DbConfig{
     }
 
     //READ : for cart scene
-    public static Variant getVariantByProductId(int productId){
+    public static Variant getVariantById(int id){
         Variant variant = null;
-        query = "SELECT * FROM variant WHERE productId=?";
+        query = "SELECT * FROM variant WHERE id=?";
         try {
             getConnection();
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, productId);
+            preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
                 String variantName = resultSet.getString("variantName");
+                int productId = resultSet.getInt("productId");
                 byte[] productPhotoByte = resultSet.getBytes("variantPhoto");
                 ImageView productPhoto;
                 if (productPhotoByte != null) {
                     productPhoto = new ImageView(new Image(new ByteArrayInputStream(productPhotoByte)));
                 }
                 else{
-                    productPhoto = new ImageView("/images/default/nullProduct.png");
+                    productPhoto = new ImageView("/images/product/Kylie Cosmetics Power Plush Longwear Foundation.jpg");
                 }
                 variant = new Variant(id, variantName, productId, productPhoto);
             }
