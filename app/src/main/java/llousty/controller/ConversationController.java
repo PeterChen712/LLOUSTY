@@ -83,7 +83,6 @@ public class ConversationController extends DbConfig{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
         return false;
     }
 

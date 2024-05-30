@@ -85,8 +85,12 @@ public class SearchScene {
                 }
             }
             else{
-                Label notfound = new Label("Your search did not match any product");
-                // productLayout = new GridPane(notfound);
+                ImageView notFoundImage = imageSet.setImages("/images/default/nullNotFound.png", 350, 345);
+                Label notfound = new Label();
+                notfound.setGraphic(notFoundImage);
+                HBox makeCenter = new HBox(notfound);
+                makeCenter.setPadding(new Insets(0, 0, 0, 200));
+                productLayout.getChildren().add(makeCenter);
             }
         }
         return productLayout;
@@ -130,8 +134,12 @@ public class SearchScene {
                 
             }
             else{
-                Label notfound = new Label("Your search did not match any users");
-                profileLayout = new VBox(notfound);
+                ImageView notFoundImage = imageSet.setImages("/images/default/nullNotFound.png", 350, 345);
+                Label notfound = new Label();
+                notfound.setGraphic(notFoundImage);
+                HBox makeCenter = new HBox(notfound);
+                makeCenter.setPadding(new Insets(0, 0, 0, 223));
+                profileLayout = new VBox(makeCenter);
             }
         }
         return profileLayout;

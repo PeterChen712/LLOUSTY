@@ -17,7 +17,6 @@ public class DbConfig {
     public static void getConnection() {
         try {
             connection = DriverManager.getConnection(DB_URL);
-            System.out.println("BERHASIL");
         } catch (SQLException e) {
             e.printStackTrace();
         }

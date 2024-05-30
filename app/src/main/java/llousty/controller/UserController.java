@@ -140,23 +140,24 @@ public class UserController extends DbConfig {
             getConnection();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, id);
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                String name = resultSet.getString("name");
-                String username = resultSet.getString("username");
-                String password = resultSet.getString("password");
-                String email = resultSet.getString("email");
-                String alamat = resultSet.getString("alamat");
-                String phone = resultSet.getString("phone");
-                String gender = resultSet.getString("gender");
-                byte[] photoProfileByte = resultSet.getBytes("photo_profile");
-                ImageView photoProfile;
-                if (photoProfileByte != null) {
-                    photoProfile = new ImageView(new Image(new ByteArrayInputStream(photoProfileByte)));
-                } else {
-                    photoProfile = new ImageView("/images/default/nullProfile.jpg");
+            try (ResultSet userResultSet = preparedStatement.executeQuery()) {
+                while (userResultSet.next()) {
+                    String name = userResultSet.getString("name");
+                    String username = userResultSet.getString("username");
+                    String password = userResultSet.getString("password");
+                    String email = userResultSet.getString("email");
+                    String alamat = userResultSet.getString("alamat");
+                    String phone = userResultSet.getString("phone");
+                    String gender = userResultSet.getString("gender");
+                    byte[] photoProfileByte = userResultSet.getBytes("photo_profile");
+                    ImageView photoProfile;
+                    if (photoProfileByte != null) {
+                        photoProfile = new ImageView(new Image(new ByteArrayInputStream(photoProfileByte)));
+                    } else {
+                        photoProfile = new ImageView("/images/default/nullProfile.jpg");
+                    }
+                    user = new User(id, name, username, password, email, alamat, phone, gender, photoProfile);
                 }
-                user = new User(id, name, username, password, email, alamat, phone, gender, photoProfile);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -164,7 +165,7 @@ public class UserController extends DbConfig {
         return user;
     }
 
-    //READ 
+    // READ
     public static List<User> getAllUsers() throws SQLException {
         List<User> users = new ArrayList<>();
         query = "SELECT * FROM user";
@@ -185,8 +186,7 @@ public class UserController extends DbConfig {
                 ImageView photoProfile;
                 if (photoProfileByte != null) {
                     photoProfile = new ImageView(new Image(new ByteArrayInputStream(photoProfileByte)));
-                }
-                else{
+                } else {
                     photoProfile = new ImageView("/images/default/nullProfile.jpg");
                 }
                 User user = new User(id, name, username, password, email, alamat, phone, gender, photoProfile);
@@ -198,8 +198,4 @@ public class UserController extends DbConfig {
         return users;
     }
 
-
 }
-
-
-

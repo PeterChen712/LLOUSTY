@@ -374,8 +374,9 @@
 }
 
 
-.transactionBarBg{
-    -fx-background-color: #ff0000;
+.paymentMethod{
+    -fx-background-color: #D9D9D9;
+    -fx-background-radius: 10; /* Radius sudut background */
 }
 
 
@@ -441,7 +442,6 @@
 }
 
 
-
 .ButtonProfil:hover {
     -fx-background-color: #DD9FBB;
 }
@@ -475,7 +475,7 @@
     -fx-background-color: #f0f0f0; /* Button memiliki warna jika dihover */
 }
 
-
+/* END OF CSS PROFILE  */
 
 
 
@@ -561,7 +561,18 @@
     -fx-background-color: transparent;
 }
 
-
+.notFound {
+    -fx-font-family: "Arial";
+    -fx-font-size: 16px;
+    -fx-text-fill: #DD9FBB;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 5px;
+    -fx-border-color: #DD9FBB;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+}
 /* END OF CSS SERACH */
 
 
@@ -569,12 +580,13 @@
 
 /* CSS FOR CHAT SCENE HERE */
 
-.textTyped{
+.textTyped {
     -fx-background-color: rgba(255, 182, 193, 0.862);
     -fx-background-radius: 15;
     -fx-padding: 5 10 5 10;
-    -fx-max-width: 500; 
+    -fx-max-width: 500;
     -fx-text-overrun: word-ellipsis;
+    -fx-alignment: CENTER-RIGHT; /* Menambahkan alignment rata kanan */
 }
 
 .textTypedTarget{
@@ -584,3 +596,48 @@
     -fx-max-width: 500; 
     -fx-text-overrun: word-ellipsis;
 }
+
+
+/* END OF CSS CHAT */
+
+
+
+
+
+/* CSS FOR NAVBAR SELLER HERE */
+.backBrand{
+    -fx-background-color: #DD9FBB; 
+    -fx-pref-width: 750px; 
+    -fx-pref-height: 30px;
+}
+
+.backNavbarSeller{
+    -fx-background-color:#000000; 
+    -fx-pref-width: 750px; 
+    -fx-pref-height: 50px;
+}
+
+.navbarSeller{
+    /* -fx-background-color: transparent; */
+    -fx-font-family: "Times new roman";
+    -fx-text-fill: #ffffff;
+    -fx-background-color:#000000; 
+    -fx-border-color: transparent;
+    /* -fx-border-width: 10; */
+    -fx-font-size: 16px; 
+    -fx-font-weight: bold;
+    -fx-pref-width: 100px; 
+    -fx-pref-height: 50px;
+}
+
+.navbarSeller:hover{
+    -fx-background-color: #292727; 
+}
+
+.navbarIconSeller{
+    -fx-border-width: 0;
+    -fx-background-color:transparent;
+    -fx-pref-width: 60px; 
+}
+
+/* END OF CSS NARVBAR SELLER */

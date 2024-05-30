@@ -43,25 +43,61 @@ public class StringListConverter {
         return sb.toString();
     }
 
+    // public static List<Integer> stringToListInt(String string) {
+    //     List<Integer> list = new ArrayList<>();
+
+    //     if (string == null || string.isEmpty()) {
+    //         return list;
+    //     }
+
+    //     String[] items = string.split(",");
+    //     for (String item : items) {
+    //         System.out.println("cek " + item);
+    //         try {
+    //             int value = Integer.parseInt(item.trim());
+    //             list.add(value);
+    //         } catch (NumberFormatException e) {
+    //             // Mengabaikan nilai yang tidak valid
+    //         }
+    //     }
+
+    //     return list;
+    // }
+
+
     public static List<Integer> stringToListInt(String string) {
         List<Integer> list = new ArrayList<>();
-
+    
         if (string == null || string.isEmpty()) {
             return list;
         }
-
-        String[] items = string.split(",");
+    
+        String[] items = string.replaceAll("[\\[\\]\\s]", "").split(",");
+    
         for (String item : items) {
+    
+            if (item.isEmpty()) {
+                continue; // Mengabaikan item kosong
+            }
+    
             try {
-                int value = Integer.parseInt(item.trim());
+                int value;
+                if (item.startsWith("[")) {
+                    value = Integer.parseInt(item.substring(1));
+                } else if (item.endsWith("]")) {
+                    value = Integer.parseInt(item.substring(0, item.length() - 1));
+                } else {
+                    value = Integer.parseInt(item.trim());
+                }
                 list.add(value);
             } catch (NumberFormatException e) {
                 // Mengabaikan nilai yang tidak valid
             }
         }
-
+    
         return list;
     }
+    
 
     public static String listIntToString(List<Integer> list) {
         if (list == null || list.isEmpty()) {

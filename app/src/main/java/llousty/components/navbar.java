@@ -35,9 +35,8 @@ public class Navbar {
         return searchText;
     }
 
-    public VBox getNavbar(Stage stage, int id) throws SQLException {
+    public static VBox getNavbar(Stage stage, int id) throws SQLException {
         User user = UserController.getUserById(id);
-        // gambar untuk sementara search dulu
 
         ImageView brand = imageSet.setImages("/images/logo/logo3.png", 20, 20);
         Text textBrand = new Text("FULFILL YOUR MARVELLOUS BEAUTY WITH LLOUSTY");
@@ -64,7 +63,7 @@ public class Navbar {
         });
 
         // Wishlist Button
-        Label wishlistMenu = new Label("WISHLIST");
+        Label wishlistMenu = new Label("CHAT");
         wishlistMenu.getStyleClass().add("navbar");
         wishlistMenu.setAlignment(Pos.CENTER);
         wishlistMenu.setOnMouseClicked(event -> {
@@ -145,6 +144,124 @@ public class Navbar {
         cartLabel.getStyleClass().add("navbar");
         cartLabel.setOnMouseClicked(event -> {
             System.out.println("Home Label diklik!");
+        });
+
+        HBox menu = new HBox(homeMenu, wishlistMenu, ordersMenu, searchBar, searchButton, profileMenu, cartMenu);
+        menu.setSpacing(0);
+        menu.setAlignment(Pos.TOP_CENTER);
+        // menu.setPadding(new Insets(5, 0, 0, 0));
+        StackPane menuBar = new StackPane(navbarLabel, menu);
+
+        VBox navbar = new VBox(brandLayout, menuBar);
+        return navbar;
+
+    }
+
+
+
+    public static VBox getNavbarSeller(Stage stage, int id) throws SQLException {
+        User user = UserController.getUserById(id);
+
+        ImageView brand = imageSet.setImages("/images/logo/logo3.png", 20, 20);
+        Text textBrand = new Text("FULFILL YOUR MARVELLOUS BEAUTY WITH LLOUSTY");
+        textBrand.getStyleClass().add("textBrand");
+        HBox brandItem = new HBox(brand, textBrand);
+        brandItem.setAlignment(Pos.CENTER);
+        brandItem.setSpacing(10);
+        Label backBrand = new Label();
+        backBrand.getStyleClass().add("backBrand");
+        StackPane brandLayout = new StackPane(backBrand, brandItem);
+        brandLayout.setAlignment(Pos.CENTER);
+
+        Label navbarLabel = new Label();
+        navbarLabel.getStyleClass().add("backNavbarSeller");
+        Label homeMenu = new Label("HOME");
+        homeMenu.getStyleClass().add("navbarSeller");
+        homeMenu.setAlignment(Pos.CENTER);
+        homeMenu.setOnMouseClicked(event -> {
+            try {
+                new HomeScene(stage).show(id);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+
+        // Wishlist Button
+        Label wishlistMenu = new Label("CHAT");
+        wishlistMenu.getStyleClass().add("navbarSeller");
+        wishlistMenu.setAlignment(Pos.CENTER);
+        wishlistMenu.setOnMouseClicked(event -> {
+            System.out.println("wishlist Label diklik!");
+        });
+
+        // Orders Button
+        Label ordersMenu = new Label("ORDERED");
+        ordersMenu.getStyleClass().add("navbarSeller");
+        ordersMenu.setAlignment(Pos.CENTER);
+        ordersMenu.setOnMouseClicked(event -> {
+            try {
+                new TransactionScene(stage).show(id);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+
+        // tombol cari
+        // ToolBar searchToolbar = new ToolBar();
+        TextField searchBar = new TextField();
+        searchBar.setPromptText(getSearchText());
+        searchBar.getStyleClass().add("searchBar");
+        ImageView searchLogo = imageSet.setImages("/images/navbar/search.png", 20, 15);
+        Button searchButton = new Button();
+        searchButton.setGraphic(searchLogo);
+        searchButton.getStyleClass().add("searchButton");
+        searchButton.setOnAction(e -> {
+            setSearchText(searchBar.getText());
+            try {
+                new SearchScene(stage).show(id);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        });
+
+        searchBar.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                searchButton.fire();
+            }
+        });
+
+        // Profile
+        ImageView profileLogo = imageSet.setImages(user.getPhotoFile(), 40, 40);
+        ImageView border = imageSet.setImages("/images/navbar/borderSeller.png", 40, 40);
+        StackPane imageCombine = new StackPane(profileLogo, border);
+        imageCombine.setAlignment(Pos.CENTER_LEFT);
+        Button profileMenu = new Button();
+        profileMenu.getStyleClass().add("navbarIconSeller");
+        profileMenu.setGraphic(imageCombine);
+
+        profileMenu.setOnAction(e -> {
+            ProfileScene profileScene = new ProfileScene(stage);
+            try {
+                StackPane sisiKananPane = new StackPane();
+                profileScene.show(id);
+                // profileScene.showMyProfile(id, sisiKananPane);
+            } catch (SQLException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        });
+
+        // Cart Button
+        ImageView cartLogo = imageSet.setImages("/images/navbar/cartSeller.png", 60, 40);
+        Label cartMenu = new Label();
+        cartMenu.getStyleClass().add("navbarIcon");
+        cartMenu.setGraphic(cartLogo);
+        cartMenu.setOnMouseClicked(e -> {
+            try {
+                new CartScene(stage).show(id);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         });
 
         HBox menu = new HBox(homeMenu, wishlistMenu, ordersMenu, searchBar, searchButton, profileMenu, cartMenu);

@@ -3,7 +3,6 @@ package llousty.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import llousty.Models.Chat;
 import llousty.Models.Notif;
 import llousty.config.DbConfig;
 

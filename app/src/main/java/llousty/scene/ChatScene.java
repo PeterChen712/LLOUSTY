@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -19,7 +20,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import llousty.App;
-import llousty.Models.Chat;
 import llousty.Models.Comment;
 import llousty.Models.Conversation;
 import llousty.Models.Message;
@@ -28,7 +28,6 @@ import llousty.Utils.ParticipantFormat;
 import llousty.Utils.StringListConverter;
 import llousty.Utils.imageSet;
 import llousty.components.Navbar;
-import llousty.controller.ChatController;
 import llousty.controller.CommentsController;
 import llousty.controller.ConversationController;
 import llousty.controller.MessageController;
@@ -51,8 +50,11 @@ public class ChatScene {
         User mySelf = UserController.getUserById(userId);
         User target = UserController.getUserById(targerUserId);
         Conversation conversation = getFromDB(targerUserId, userId);
-        List<Integer> listMessageGet = StringListConverter.stringToListInt(conversation.getMessageIdList());
-        List<Integer> listMessageId = listMessageGet;
+        List<Integer> listMessageId = StringListConverter.stringToListInt(conversation.getMessageIdList());
+        // List<Integer> listMessageId = ;
+
+        
+        System.out.println("List message id  : " + String.valueOf(StringListConverter.stringToListInt(conversation.getMessageIdList())));
 
 
         // List<Chat> chats = ChatController.getAllChatByTargetId(targerUserId);
@@ -102,9 +104,11 @@ public class ChatScene {
                 textTyped.setWrapText(true); 
                 textTyped.setTextAlignment(TextAlignment.RIGHT);
                 HBox textTypedHBox = new HBox(textTyped);
+                textTypedHBox.setPrefWidth(700);
                 if (message.getTargetId() == userId) {// 12 11 ke kiri
                     textTypedHBox.setAlignment(Pos.CENTER_LEFT);
                     textTyped.getStyleClass().add("textTypedTarget");
+                    textTypedHBox.setPadding(new Insets(0, 0, 0, 20));
                     
                 }
                 else if (message.getSenderId() == userId) {// 11 11 ke kanan
@@ -134,7 +138,9 @@ public class ChatScene {
         VBox vBoxPostChat = new VBox(labelPostChat, textFieldChat, buttonPostChat);
         vBoxPostChat.setSpacing(5);
 
-        VBox vBoxChats = new VBox(labelTitleChats, vBoxBookChats, vBoxPostChat);
+        ScrollPane scrollPane = new ScrollPane(vBoxBookChats);
+
+        VBox vBoxChats = new VBox(labelTitleChats, scrollPane, vBoxPostChat);
         vBoxChats.setSpacing(10);
 
         VBox vBoxMainContent = new VBox(vBoxChats);
@@ -150,20 +156,21 @@ public class ChatScene {
                     // listMessageId.add(MessageController.getMessageId(userId, targerUserId, text));
                     listMessageId.add(MessageController.getLatestMessageId());
                     // System.out.println(StringListConverter.listIntToString(listMessageId));
-                    System.out.println(MessageController.getLatestMessageId());
+                    // System.out.println(MessageController.getLatestMessageId());
                     // System.out.println(MessageController.getMessageId(userId, targerUserId, text));
                     
+                    int conversationIdNew = conversation.getId();
+                    String conversationParticipantsIdNew = conversation.getParticipantsId();
+                    boolean isSuccesfullUpdated;
                     
                     try {
-                        int conversationIdNew = conversation.getId();
-                        String conversationParticipantsIdNew = conversation.getParticipantsId();
-                        if (ConversationController.addConversation(conversationParticipantsIdNew, text)) {
-                            System.out.println("Masuk");
-                            if (ConversationController.deleteConversationById(conversationIdNew)) {
-                                new ChatScene(stage).show(targerUserId, userId);
-                            }
+                        isSuccesfullUpdated = ConversationController.updateConversation(conversationIdNew, conversationParticipantsIdNew, String.valueOf(listMessageId));
+                        System.out.println("isSuccesfullUpdated: "+isSuccesfullUpdated);
+                        if (isSuccesfullUpdated) {
+                            new ChatScene(stage).show(targerUserId, userId);
+                            return;
                         }
-                    } catch (SQLException | FileNotFoundException e1) {
+                    } catch (FileNotFoundException | SQLException e1) {
                         e1.printStackTrace();
                     }
                     

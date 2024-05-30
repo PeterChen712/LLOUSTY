@@ -31,6 +31,7 @@ import llousty.components.Navbar;
 import llousty.controller.UserController;
 
 public class ProfileScene {
+    // private boolean sellerMode = false;
     private static Stage stage;
     private File selectedFile;
 
@@ -39,7 +40,16 @@ public class ProfileScene {
     }
 
     private void showSellerMode(int userId, StackPane sisiKiriProfileScene) throws SQLException {
-        // Implementasi untuk Seller Mode
+        
+        
+        
+        //MAIN 
+        
+        VBox navbar = Navbar.getNavbarSeller(stage, userId);
+        Scene scene = new Scene(navbar, App.getWidth(), App.getHeight());
+        scene.getStylesheets().add("styles.css");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void show(int userId) throws SQLException {
@@ -56,7 +66,7 @@ public class ProfileScene {
         SellerMode.getStyleClass().add("category");
         VBox menuProfil = new VBox(40, fotoPane, MyProfile, SellerMode, Logout);
         menuProfil.setAlignment(Pos.CENTER);
-        Rectangle sisiKiriProfileSceneElm = new Rectangle(201, 422);
+        Rectangle sisiKiriProfileSceneElm = new Rectangle(201, 410);
         sisiKiriProfileSceneElm.setStyle("-fx-fill: #ffffff; -fx-border-radius: 7");
         StackPane sisiKiriProfileScene = new StackPane(sisiKiriProfileSceneElm, menuProfil);
         sisiKiriProfileScene.setAlignment(Pos.CENTER_LEFT);
@@ -89,36 +99,37 @@ public class ProfileScene {
         MyProfile.setStyle("-fx-background-color: #DEA0BC;");
         SellerMode.setStyle("-fx-background-color: #ffffff;");
         Logout.setStyle("-fx-background-color: #ffffff;");
+        Button askForComplete = new Button();
+
 
         MyProfile.setOnMouseClicked(e -> {
-            if (user != null) {
-                MyProfile.setStyle("-fx-background-color: #DEA0BC;");
-                SellerMode.setStyle("-fx-background-color: #ffffff;");
-                Logout.setStyle("-fx-background-color: #ffffff;");
-                return;
-            } else {
-                LoginScene loginScene = new LoginScene(stage);
-                loginScene.show();
-            }
+            MyProfile.setStyle("-fx-background-color: #DEA0BC;");
+            SellerMode.setStyle("-fx-background-color: #ffffff;");
+            Logout.setStyle("-fx-background-color: #ffffff;");
         });
 
         SellerMode.setOnMouseClicked(e -> {
-            if (user != null) {
+            if (user.getAlamat() != null && user.getGender() != null && user.getPhone() != null) {
                 SellerMode.setStyle("-fx-background-color: #DEA0BC;");
                 MyProfile.setStyle("-fx-background-color: #ffffff;");
                 Logout.setStyle("-fx-background-color: #ffffff;");
+                // sellerMode = true;
                 try {
                     new ProfileScene(stage).showSellerMode(userId, sisiKiriProfileScene);
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
             } else {
-                LoginScene loginScene = new LoginScene(stage);
-                loginScene.show();
+                MyProfile.setStyle("-fx-background-color: #DEA0BC;");
+                SellerMode.setStyle("-fx-background-color: #ffffff;");
+                askForComplete.setText("Complete your profile first");
+                askForComplete.getStyleClass().add("ButtonProfil");
+                askForComplete.setVisible(true);
             }
         });
         Button confirLogout = new Button("Klik jika ingin logout");
         Button tidakJadiLogout = new Button("Tidak jadi logout");
+        
         confirLogout.getStyleClass().add("ButtonProfil");
         tidakJadiLogout.getStyleClass().add("ButtonProfil");
 
@@ -232,8 +243,7 @@ public class ProfileScene {
             if (!password.isEmpty()) {
                 if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$")) {
                     passwordField.setText(null);
-                    passwordField
-                            .setPromptText("Password minimal 8 karakter terdiri\nhurufbesar, huruf kecil, dan angka");
+                    passwordField.setPromptText("Password minimal 8 karakter terdiri\nhurufbesar, huruf kecil, dan angka");
                     return;
                 }
                 passwordToUpdate = PasswordHasher.doHashing(password);
@@ -247,12 +257,12 @@ public class ProfileScene {
                 if (isSuccesfullUpdated) {
                     btnSaveChanges.setVisible(false);
                     btnEdit.setVisible(true);
+                    
                     // ProfileScene.showMyProfile(userId, sisiKiriProfileScene);
                     return;
 
                 }
             } catch (FileNotFoundException e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
 
@@ -283,8 +293,14 @@ public class ProfileScene {
         HBox keseluruhanScene = new HBox(10, sisiKiriProfileScene, scrollPane);
 
         // Root layout
-        Navbar navbar = new Navbar();
-        VBox mainContent = new VBox(navbar.getNavbar(stage, userId), keseluruhanScene);
+        VBox navbar = Navbar.getNavbar(stage, userId);
+        // if (sellerMode) {
+        //     navbar = Navbar.getNavbarSeller(stage, userId);
+        // } else{
+        //     navbar = Navbar.getNavbar(stage, userId);
+        // }
+
+        VBox mainContent = new VBox(navbar, keseluruhanScene);
         // mainContent.getStyleClass().add("mainContent");
 
         StackPane rootPane = new StackPane(mainContent);
@@ -296,6 +312,9 @@ public class ProfileScene {
 
         confirLogout.setVisible(false);
         tidakJadiLogout.setVisible(false);
+        askForComplete.setVisible(false);
+        rootPane.getChildren().add(askForComplete);
+
         Logout.setOnMouseClicked(e -> {
             Logout.setStyle("-fx-background-color: #DEA0BC;");
             MyProfile.setStyle("-fx-background-color: #ffffff;");
@@ -324,6 +343,10 @@ public class ProfileScene {
             tidakJadiLogout.setVisible(false);
             confirLogout.setVisible(false);
             rootPane.getChildren().remove(rootPane.getChildren().size() - 1);
+        });
+
+        askForComplete.setOnAction(e->{
+            askForComplete.setVisible(false);
         });
     }
 }
