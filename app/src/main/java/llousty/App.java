@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import llousty.config.DbConfig;
@@ -45,4 +46,5 @@ public class App extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
 }
