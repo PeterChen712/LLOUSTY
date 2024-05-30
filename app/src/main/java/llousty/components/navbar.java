@@ -22,21 +22,23 @@ import llousty.scene.CartScene;
 import llousty.scene.HomeScene;
 import llousty.scene.SearchScene;
 import llousty.scene.TransactionScene;
+import llousty.scene.ProfileScene;
 
 public class Navbar {
     private static String searchText = "Search";
+
     public static void setSearchText(String searchText) {
         Navbar.searchText = searchText;
     }
+
     public static String getSearchText() {
         return searchText;
     }
 
-    public VBox getNavbar(Stage stage, int id) throws SQLException{
+    public VBox getNavbar(Stage stage, int id) throws SQLException {
         User user = UserController.getUserById(id);
-        //gambar untuk sementara search dulu
-        
-        
+        // gambar untuk sementara search dulu
+
         ImageView brand = imageSet.setImages("/images/logo/logo3.png", 20, 20);
         Text textBrand = new Text("FULFILL YOUR MARVELLOUS BEAUTY WITH LLOUSTY");
         textBrand.getStyleClass().add("textBrand");
@@ -47,8 +49,6 @@ public class Navbar {
         backBrand.getStyleClass().add("backBrand");
         StackPane brandLayout = new StackPane(backBrand, brandItem);
         brandLayout.setAlignment(Pos.CENTER);
-        
-
 
         Label navbarLabel = new Label();
         navbarLabel.getStyleClass().add("backNavbar");
@@ -72,7 +72,7 @@ public class Navbar {
         });
 
         // Orders Button
-        Label ordersMenu = new Label("ORDERS");
+        Label ordersMenu = new Label("ORDERED");
         ordersMenu.getStyleClass().add("navbar");
         ordersMenu.setAlignment(Pos.CENTER);
         ordersMenu.setOnMouseClicked(event -> {
@@ -83,16 +83,16 @@ public class Navbar {
             }
         });
 
-        //tombol cari
+        // tombol cari
         // ToolBar searchToolbar = new ToolBar();
         TextField searchBar = new TextField();
         searchBar.setPromptText(getSearchText());
         searchBar.getStyleClass().add("searchBar");
-        ImageView searchLogo = imageSet.setImages("/images/navbar/search.png", 20, 20);
+        ImageView searchLogo = imageSet.setImages("/images/navbar/search.png", 20, 15);
         Button searchButton = new Button();
         searchButton.setGraphic(searchLogo);
-        searchButton.getStyleClass().add("searchButton"); 
-        searchButton.setOnAction(e->{
+        searchButton.getStyleClass().add("searchButton");
+        searchButton.setOnAction(e -> {
             setSearchText(searchBar.getText());
             try {
                 new SearchScene(stage).show(id);
@@ -100,14 +100,14 @@ public class Navbar {
                 e1.printStackTrace();
             }
         });
-        
-        searchBar.setOnKeyPressed(e ->{
+
+        searchBar.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
                 searchButton.fire();
             }
         });
 
-        //Profile
+        // Profile
         ImageView profileLogo = imageSet.setImages(user.getPhotoFile(), 40, 40);
         ImageView border = imageSet.setImages("/images/navbar/border.png", 40, 40);
         StackPane imageCombine = new StackPane(profileLogo, border);
@@ -115,16 +115,25 @@ public class Navbar {
         Button profileMenu = new Button();
         profileMenu.getStyleClass().add("navbarIcon");
         profileMenu.setGraphic(imageCombine);
-        profileMenu.setOnAction(e->{
-            //ke profile scene
+
+        profileMenu.setOnAction(e -> {
+            ProfileScene profileScene = new ProfileScene(stage);
+            try {
+                StackPane sisiKananPane = new StackPane();
+                profileScene.show(id);
+                // profileScene.showMyProfile(id, sisiKananPane);
+            } catch (SQLException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         });
 
-          // Cart Button
+        // Cart Button
         ImageView cartLogo = imageSet.setImages("/images/navbar/cart.png", 60, 40);
         Label cartMenu = new Label();
         cartMenu.getStyleClass().add("navbarIcon");
         cartMenu.setGraphic(cartLogo);
-        cartMenu.setOnMouseClicked(e->{
+        cartMenu.setOnMouseClicked(e -> {
             try {
                 new CartScene(stage).show(id);
             } catch (SQLException e1) {
@@ -132,30 +141,20 @@ public class Navbar {
             }
         });
 
-
         Label cartLabel = new Label("Home");
         cartLabel.getStyleClass().add("navbar");
         cartLabel.setOnMouseClicked(event -> {
             System.out.println("Home Label diklik!");
         });
 
-
-        
         HBox menu = new HBox(homeMenu, wishlistMenu, ordersMenu, searchBar, searchButton, profileMenu, cartMenu);
         menu.setSpacing(0);
         menu.setAlignment(Pos.TOP_CENTER);
         // menu.setPadding(new Insets(5, 0, 0, 0));
         StackPane menuBar = new StackPane(navbarLabel, menu);
 
-
         VBox navbar = new VBox(brandLayout, menuBar);
         return navbar;
-
-
-
-
-
-
 
     }
 }

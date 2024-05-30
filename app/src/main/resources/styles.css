@@ -382,6 +382,101 @@
 /* END OF CSS CART */
 
 
+/* CSS OF PROFILE SCENE */
+.persegiPinkProfile {
+    -fx-background-fill: #DD9FBB;
+}
+
+.backText {
+    -fx-fill: #F1EEEE;
+}
+
+.persegiAbuProfile {
+    -fx-background-color: #F1EEEE;
+    -fx-background-radius: 7;
+    -fx-padding: 10;
+    -fx-min-width: 514;
+    -fx-min-height: 20;
+    -fx-max-width: 514;
+    -fx-max-height: 20;
+}
+
+.labelSubProfil {
+    -fx-background-color: #DD9FBB;
+    -fx-background-radius: 7;
+    -fx-padding: 10;
+    -fx-text-fill: black;
+    -fx-min-width: 514;
+    -fx-max-width: 514;
+    -fx-max-height: 20;
+}
+
+.labelIMyProfil {
+    -fx-font-family: "Estedad-VF";
+    -fx-text-fill: black;
+    -fx-font-size: 15px;
+}
+
+.fieldMyProfil {
+    -fx-font-family: "Estedad-VF";
+    -fx-text-fill: black;
+    -fx-font-size: 13px;
+    -fx-background-color: white; 
+    -fx-background-radius: 7;
+    -fx-border-color: black;
+    -fx-border-radius: 7;
+    -fx-border-width: 1;
+}
+
+.ButtonProfil {
+    -fx-font-family: "Estedad-VF";
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-font-size: 15px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: black;
+    -fx-border-radius: 7;
+    -fx-pref-width: 300;
+    -fx-pref-height: 34;
+}
+
+
+
+.ButtonProfil:hover {
+    -fx-background-color: #DD9FBB;
+}
+
+.ButtonProfil:pressed {
+    -fx-background-color: #DD9FBB;
+}
+
+.ButtonMenuProfil {
+    -fx-font-family: "Estedad-VF";
+    -fx-background-radius: 7; /* Radius lengkungan sudut */
+    -fx-text-fill: #000000; /* Warna teks */
+    -fx-padding: 0px 20px; /* Padding atas/bawah 5px, kiri/kanan 20px */
+    -fx-background-color: #ffffff;
+    -fx-border-width: 0; /* Tidak ada border */
+    -fx-font-size: 16px;
+}
+
+.btnSelectPhoto {
+    -fx-font-family: "Estedad-VF";
+    -fx-text-fill: transparent; /* Text tidak tampil jika tidak dihover */
+    -fx-font-size: 15px;
+    -fx-background-color: transparent; /* Button transparant jika tidak dihover */
+    -fx-border-color: black;
+    -fx-pref-width: 79;
+    -fx-pref-height: 34;
+}
+
+.btnSelectPhoto:hover {
+    -fx-text-fill: black; /* Text tampil jika dihover */
+    -fx-background-color: #f0f0f0; /* Button memiliki warna jika dihover */
+}
+
+
+
 
 
 /* CSS FOR TRANSACTION HERE */

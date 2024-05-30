@@ -81,7 +81,7 @@ public class UserController extends DbConfig {
 
     // UPDATE
     public static boolean updateUser(int id, String name, String username, String password, String email, String alamat,
-        String phone, String gender, File selectedFile) throws FileNotFoundException {
+            String phone, String gender, File selectedFile) throws FileNotFoundException {
 
         if (selectedFile != null) {
             try {
@@ -102,9 +102,32 @@ public class UserController extends DbConfig {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else {
+            // TES
         }
-        else{
-            //TES
+        return false;
+    }
+
+    // UPDATE
+    public static boolean updateUserMyProfile(int id, String name, String username, String password, String email,
+            String alamat,
+            String phone, String gender) throws FileNotFoundException {
+        try {
+            getConnection();
+            String query = "UPDATE user SET name=?, username=?, password=?, email=?, alamat=?, phone=?, gender=? WHERE id=?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, username);
+            preparedStatement.setString(3, password);
+            preparedStatement.setString(4, email);
+            preparedStatement.setString(5, alamat);
+            preparedStatement.setString(6, phone);
+            preparedStatement.setString(7, gender);
+            preparedStatement.setInt(8, id);
+            int rowsUpdated = preparedStatement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return false;
     }
@@ -130,8 +153,7 @@ public class UserController extends DbConfig {
                 ImageView photoProfile;
                 if (photoProfileByte != null) {
                     photoProfile = new ImageView(new Image(new ByteArrayInputStream(photoProfileByte)));
-                }
-                else{
+                } else {
                     photoProfile = new ImageView("/images/default/nullProfile.jpg");
                 }
                 user = new User(id, name, username, password, email, alamat, phone, gender, photoProfile);

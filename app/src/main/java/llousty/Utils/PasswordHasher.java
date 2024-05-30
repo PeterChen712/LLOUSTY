@@ -1,8 +1,9 @@
 package llousty.Utils;
 
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import llousty.Models.User;
 
 public class PasswordHasher {
     // untuk securty password
@@ -19,6 +20,7 @@ public class PasswordHasher {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return ""; 
+        return "";
     }
+
 }
