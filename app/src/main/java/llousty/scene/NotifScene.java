@@ -19,13 +19,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import llousty.App;
+import llousty.Abstract.ShowScene;
 import llousty.Models.Notif;
 import llousty.Utils.RemoveIndex;
 import llousty.Utils.imageSet;
 import llousty.components.Navbar;
 import llousty.controller.NotifController;
 
-public class NotifScene {
+public class NotifScene implements ShowScene{
     private Stage stage;
     
     public NotifScene(Stage stage) {
@@ -86,6 +87,12 @@ public class NotifScene {
         scene.getStylesheets().add("styles.css");
         stage.setScene(scene);
         stage.show();
+    }
+
+
+    @Override
+    public void show() throws InterruptedException {
+        throw new UnsupportedOperationException("Unimplemented method 'show'");
     }
     
 }

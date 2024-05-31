@@ -135,6 +135,24 @@ public class UserController extends DbConfig {
         return false;
     }
 
+
+    //UPDATE
+    public static boolean updateUserListChatId(int id, String listChatId) {
+        try {
+            getConnection();
+            String query = "UPDATE user SET listChatId=? WHERE id=?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, listChatId);
+            preparedStatement.setInt(2, id);
+            int rowsUpdated = preparedStatement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+
     // READ
     public static User getUserById(int id) throws SQLException {
         User user = null;

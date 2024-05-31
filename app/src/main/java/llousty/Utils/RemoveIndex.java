@@ -1,6 +1,5 @@
 package llousty.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import llousty.Models.Product;
@@ -34,5 +33,5 @@ public class RemoveIndex {
     }
 
     return list;
-}
+    }
 }

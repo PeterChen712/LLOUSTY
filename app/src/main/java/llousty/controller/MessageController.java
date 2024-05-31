@@ -1,12 +1,7 @@
 package llousty.controller;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-
-import llousty.Models.Cart;
 import llousty.Models.Message;
-import llousty.Models.User;
 import llousty.config.DbConfig;
 
 public class MessageController extends DbConfig {

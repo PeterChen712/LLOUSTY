@@ -21,19 +21,20 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import llousty.App;
+import llousty.Abstract.ShowScene;
 import llousty.Models.Comment;
 import llousty.Models.Product;
 import llousty.Models.User;
-import llousty.Models.Variant;
+import llousty.Models.Discount;
 import llousty.Utils.RateMaker;
 import llousty.Utils.imageSet;
 import llousty.components.Navbar;
 import llousty.controller.CommentsController;
 import llousty.controller.ProductController;
 import llousty.controller.UserController;
-import llousty.controller.VariantController;
+import llousty.controller.DiscountController;
 
-public class ProductScene {
+public class ProductScene implements ShowScene{
     private int count = 1; 
 
     private Stage stage;
@@ -46,7 +47,7 @@ public class ProductScene {
         User user = UserController.getUserById(userId);
         Product product = ProductController.getProductById(productId);
         List<Comment> comments = CommentsController.getAllCommentByProductId(productId);
-        List<Variant> variants = VariantController.getAllVariantByProductId(productId);
+        List<Discount> discounts = DiscountController.getAllDiscountByProductId(productId);
 
         ImageView productPhoto = imageSet.setImages(product.getProductPhoto(), 300, 500);
         productPhoto.setPreserveRatio(true);
@@ -102,18 +103,17 @@ public class ProductScene {
         // int row = 0;
         
 
-        Label variantLabel = new Label();
-        variantLabel.getStyleClass().add("variantLabel");
-        if (variants.size() != 0) {
-            for (Variant variant : variants) {
-                variantLabel.setText("variant");
-                Label variantType = new Label(variant.getVariantName());
-                variantType.getStyleClass().add("variantType");
-                variantType.setPrefWidth(50);
-                variantType.setPrefHeight(20);
-                variantType.setOnMouseClicked(e->{
+        Label discountLabel = new Label();
+        discountLabel.getStyleClass().add("variantLabel");
+        if (discounts.size() != 0) {
+            for (Discount discount : discounts) {
+                discountLabel.setText("Discount");
+                Label discountType = new Label(String.valueOf(discount.getDiscount()));
+                discountType.getStyleClass().add("variantType");
+                discountType.setPrefWidth(50);
+                discountType.setPrefHeight(20);
+                discountType.setOnMouseClicked(e->{
                 // productPhoto = imageSet.setImages(variant.getVariantPhoto(), 300, 500);
-                System.out.println("Helo");
             });
 
 
@@ -129,7 +129,7 @@ public class ProductScene {
             }
         }
         else{
-            variantLabel.setText("no variant");
+            discountLabel.setText("no variant");
         }
 
 
@@ -165,7 +165,7 @@ public class ProductScene {
 
 
 
-        VBox information = new VBox(productName, sellerBox, rating, descriptionText, variantLabel, quantity, addToCart);
+        VBox information = new VBox(productName, sellerBox, rating, descriptionText, discountLabel, quantity, addToCart);
         
         
 
@@ -246,5 +246,10 @@ public class ProductScene {
         scene.getStylesheets().add("styles.css");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void show() throws InterruptedException {
+        throw new UnsupportedOperationException("Unimplemented method 'show'");
     }
 }

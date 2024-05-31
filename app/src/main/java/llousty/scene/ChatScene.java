@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import llousty.App;
+import llousty.Abstract.ShowScene;
 import llousty.Models.Conversation;
 import llousty.Models.Message;
 import llousty.Models.User;
@@ -32,7 +33,7 @@ import llousty.controller.ConversationController;
 import llousty.controller.MessageController;
 import llousty.controller.UserController;
 
-public class ChatScene {
+public class ChatScene implements ShowScene{
     private Stage stage;
 
     public ChatScene(Stage stage) {
@@ -49,8 +50,8 @@ public class ChatScene {
         User mySelf = UserController.getUserById(userId);
         User target = UserController.getUserById(targerUserId);
         Conversation conversation = getFromDB(targerUserId, userId);
-        List<Integer> cek = StringListConverter.stringToListInt(conversation.getMessageIdList());
-        List<Integer> cek2 = StringListConverter.stringToListInt(mySelf.getListChatId());
+        List<Integer> cek = StringListConverter.stringToListInt(conversation.getMessageIdList()); // output id antara chat
+        List<Integer> cek2 = StringListConverter.stringToListInt(mySelf.getListChatId()); // output siapa saja yg pernah dichat
 
         boolean add = true;
         outerloop:
@@ -65,9 +66,17 @@ public class ChatScene {
             }
         }
         if (add) {
-        
+        boolean isSuccesfullUpdated;
             try {
-                
+                cek2.add(targerUserId);
+                String listChatId = StringListConverter.listIntToString(cek2);
+                // isSuccesfullUpdated = UserController.updateUser(userId, mySelf.getName(), mySelf.getUsername(), mySelf.getPassword(), 
+                //         mySelf.getEmail(), mySelf.getAlamat(), mySelf.getPhone(), mySelf.getGender(), 
+                //         mySelf.getPhotoFile(), mySelf.getSellerMode(), mySelf.getTotalNotif(), listChatId);
+                isSuccesfullUpdated = UserController.updateUserListChatId(userId, listChatId);
+                if (isSuccesfullUpdated) {
+                    new ChatScene(stage).show();
+                }
             } catch (Exception e) {
                 // TODO: handle exception
             }
@@ -220,5 +229,10 @@ public class ChatScene {
         scene.getStylesheets().add("styles.css");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void show() {
+        throw new UnsupportedOperationException("Unimplemented method 'show'");
     }
 }

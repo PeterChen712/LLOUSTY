@@ -22,6 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import llousty.App;
+import llousty.Abstract.ShowScene;
 import llousty.Models.Product;
 import llousty.Models.User;
 import llousty.Utils.SearchEngine;
@@ -31,7 +32,7 @@ import llousty.components.Navbar;
 import llousty.controller.ProductController;
 import llousty.controller.UserController;
 
-public class SearchScene {
+public class SearchScene implements ShowScene{
     private Stage stage;
     public SearchScene(Stage stage) {
         this.stage = stage;
@@ -106,8 +107,10 @@ public class SearchScene {
     private static VBox showUserSearch(Stage stage, String filter, int id) throws SQLException{
         List<User> users = UserController.getAllUsers();
         VBox profileLayout = new VBox();
+        boolean userFound = false;
         for (User user : users) {
             if (SearchEngine.containsSearchName(user.getName(), filter) || SearchEngine.containsSearchName(user.getUsername(), filter)) {
+                userFound = true;
                 if (user.getId() != id) {
                     
                     ImageView profileLogo = imageSet.setImages(user.getPhotoFile(), 40, 40);
@@ -143,7 +146,8 @@ public class SearchScene {
                 }
                 
             }
-            else{
+
+            if (!userFound){
                 ImageView notFoundImage = imageSet.setImages("/images/default/nullNotFound.png", 350, 345);
                 Label notfound = new Label();
                 notfound.setGraphic(notFoundImage);
@@ -156,7 +160,6 @@ public class SearchScene {
     }
 
     public void show(int userId) throws SQLException, UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException{    
-        Navbar navbar = new Navbar();
 
 
         Label productLabel = new Label("Product");
@@ -202,5 +205,10 @@ public class SearchScene {
         scene.getStylesheets().add("styles.css");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void show() throws InterruptedException {
+        throw new UnsupportedOperationException("Unimplemented method 'show'");
     }
 }

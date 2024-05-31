@@ -19,13 +19,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import llousty.App;
+import llousty.Abstract.ShowScene;
 import llousty.Models.Product;
 import llousty.Utils.imageSet;
 import llousty.Utils.priceFormatter;
 import llousty.components.Navbar;
 import llousty.controller.ProductController;
 
-public class HomeScene {
+public class HomeScene implements ShowScene{
     protected Stage stage;
 
     public HomeScene(Stage stage) {
@@ -207,6 +208,12 @@ public class HomeScene {
                 e1.printStackTrace();
             }
         });
+    }
+
+
+    @Override
+    public void show() {
+        throw new UnsupportedOperationException("Unimplemented method 'show'");
     }
 
 }

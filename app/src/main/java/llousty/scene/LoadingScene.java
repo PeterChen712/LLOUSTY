@@ -4,15 +4,16 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import llousty.App;
+import llousty.Abstract.ShowScene;
 
-public class LoadingScene {
+public class LoadingScene implements ShowScene{
     private Stage stage;
 
     public LoadingScene(Stage stage) {
         this.stage = stage;
     }
 
-    public void Loading() throws InterruptedException{
+    public void show() throws InterruptedException{
         StackPane loadingRoot = new StackPane();
         Thread.sleep(1000);
 

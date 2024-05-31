@@ -34,10 +34,10 @@ public class App extends Application {
         LoginScene firstScene = new LoginScene(primaryStage);
         // firstScene.show();
         HomeScene homeScene = new HomeScene(primaryStage);
-        // homeScene.show(11);
+        homeScene.show(11);
 
         ChatScene chatScene = new ChatScene(primaryStage);
-        chatScene.show(11, 12);
+        // chatScene.show(12, 11);
 
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(icon);

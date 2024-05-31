@@ -21,12 +21,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import llousty.App;
+import llousty.Abstract.ShowScene;
 import llousty.Models.Transaction;
 import llousty.Utils.priceFormatter;
 import llousty.components.Navbar;
 import llousty.controller.TransactionController;
 
-public class TransactionScene {
+public class TransactionScene implements ShowScene{
     private Stage stage;
 
     public TransactionScene(Stage stage) {
@@ -147,6 +148,11 @@ public class TransactionScene {
         scene.getStylesheets().add("styles.css");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void show() throws InterruptedException {
+        throw new UnsupportedOperationException("Unimplemented method 'show'");
     }
 
 

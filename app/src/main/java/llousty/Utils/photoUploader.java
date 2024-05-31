@@ -1,8 +1,6 @@
 package llousty.Utils;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import javafx.stage.FileChooser;
 
 public class photoUploader {

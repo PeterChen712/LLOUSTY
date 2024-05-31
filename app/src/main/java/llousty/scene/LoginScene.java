@@ -22,11 +22,12 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import llousty.App;
+import llousty.Abstract.ShowScene;
 import llousty.Models.User;
 import llousty.Utils.imageSet;
 import llousty.controller.UserController;
 
-public class LoginScene {
+public class LoginScene implements ShowScene{
     Stage stage;
 
     public LoginScene(Stage stage) {

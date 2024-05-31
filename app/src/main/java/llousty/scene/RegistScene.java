@@ -15,10 +15,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import llousty.App;
+import llousty.Abstract.ShowScene;
 import llousty.Utils.imageSet;
 import llousty.controller.UserController;
 
-public class RegistScene {
+public class RegistScene implements ShowScene{
     Stage stage;
 
     public RegistScene(Stage stage) {

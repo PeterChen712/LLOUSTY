@@ -28,6 +28,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import llousty.App;
+import llousty.Abstract.ShowScene;
 import llousty.Models.User;
 import llousty.Utils.PasswordHasher;
 import llousty.Utils.imageSet;
@@ -35,7 +36,7 @@ import llousty.Utils.photoUploader;
 import llousty.components.Navbar;
 import llousty.controller.UserController;
 
-public class ProfileScene {
+public class ProfileScene implements ShowScene{
     // private boolean sellerMode = false;
     private Stage stage;
 
@@ -366,5 +367,10 @@ public class ProfileScene {
         askForComplete.setOnAction(e->{
             askForComplete.setVisible(false);
         });
+    }
+
+    @Override
+    public void show() throws InterruptedException {
+        throw new UnsupportedOperationException("Unimplemented method 'show'");
     }
 }
