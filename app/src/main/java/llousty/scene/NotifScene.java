@@ -46,7 +46,7 @@ public class NotifScene {
                 
             }
 
-                
+            
             Label date = new Label(notif.getDateSent());
             Label title = new Label(notif.getTitle());
             Label contain = new Label(notif.getText());
@@ -75,6 +75,7 @@ public class NotifScene {
             // listNotif.getChildren().addAll(gap, );
 
         }
+
         //MAIN 
 
 

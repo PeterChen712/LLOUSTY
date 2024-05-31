@@ -2,7 +2,6 @@ package llousty.scene;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -14,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -23,7 +21,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import llousty.App;
-import llousty.Models.Comment;
 import llousty.Models.Conversation;
 import llousty.Models.Message;
 import llousty.Models.User;
@@ -31,7 +28,6 @@ import llousty.Utils.ParticipantFormat;
 import llousty.Utils.StringListConverter;
 import llousty.Utils.imageSet;
 import llousty.components.Navbar;
-import llousty.controller.CommentsController;
 import llousty.controller.ConversationController;
 import llousty.controller.MessageController;
 import llousty.controller.UserController;
@@ -53,7 +49,33 @@ public class ChatScene {
         User mySelf = UserController.getUserById(userId);
         User target = UserController.getUserById(targerUserId);
         Conversation conversation = getFromDB(targerUserId, userId);
+        List<Integer> cek = StringListConverter.stringToListInt(conversation.getMessageIdList());
+        List<Integer> cek2 = StringListConverter.stringToListInt(mySelf.getListChatId());
+
+        boolean add = true;
+        outerloop:
+        for (Integer integer : cek) {
+            if (integer == targerUserId) {
+                for (Integer integer2 : cek2) {
+                    if (integer == integer2) {
+                        add = false;
+                        break outerloop;
+                    }
+                }
+            }
+        }
+        if (add) {
+        
+            try {
+                
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+        }
+        
+        
         List<Integer> listMessageId = StringListConverter.stringToListInt(conversation.getMessageIdList());
+
         // List<Integer> listMessageId = ;
 
         
@@ -131,6 +153,7 @@ public class ChatScene {
         } else {
             Label labelNoChat = new Label("No Chat");
             vBoxBookChats.getChildren().add(labelNoChat);
+
         }
 
         Label labelPostChat = new Label("Write a chat");
@@ -190,7 +213,6 @@ public class ChatScene {
         //MAIN 
 
 
-        Navbar navbar = new Navbar();
         VBox chatRoot = new VBox(Navbar.getNavbar(stage, userId), profileBar, vBoxMainContent);
 
 

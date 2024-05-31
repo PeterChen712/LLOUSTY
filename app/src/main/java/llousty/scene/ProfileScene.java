@@ -100,7 +100,7 @@ public class ProfileScene {
                     boolean isSuccesfullUpdated = UserController.updateUser(userId,
                             user.getName(), user.getUsername(),
                             user.getPassword(), user.getEmail(), user.getAlamat(), user.getPhone(), user.getGender(),
-                            file, user.getSellerMode(), user.getTotalNotif());
+                            file, user.getSellerMode(), user.getTotalNotif(), user.getListChatId());
                 } catch (FileNotFoundException e1) {
                     e1.printStackTrace();
                 }

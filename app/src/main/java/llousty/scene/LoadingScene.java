@@ -2,10 +2,8 @@ package llousty.scene;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import llousty.App;
-import llousty.components.Navbar;
 
 public class LoadingScene {
     private Stage stage;

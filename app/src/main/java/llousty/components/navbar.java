@@ -173,7 +173,7 @@ public class Navbar {
         // Profile
         ImageView profileLogo = imageSet.setImages(user.getPhotoFile(), 40, 40);
         ImageView border;
-        if (user.getTotalNotif() == notifs.size()) {
+        if (user.getSellerMode().equals("Seller")) {
             border = imageSet.setImages("/images/navbar/borderSeller.png", 40, 40);
         }else{
             border = imageSet.setImages("/images/navbar/border.png", 40, 40);

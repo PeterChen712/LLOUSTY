@@ -82,7 +82,7 @@ public class UserController extends DbConfig {
 
     // UPDATE
     public static boolean updateUser(int id, String name, String username, String password, String email, String alamat,
-            String phone, String gender, File selectedFile, String sellerMode, int totalNotif) throws FileNotFoundException {
+            String phone, String gender, File selectedFile, String sellerMode, int totalNotif, String listChatId) throws FileNotFoundException {
 
         if (selectedFile != null) {
             try {
@@ -99,7 +99,8 @@ public class UserController extends DbConfig {
                 preparedStatement.setBinaryStream(8, new FileInputStream(selectedFile), (int) selectedFile.length());
                 preparedStatement.setString(9, sellerMode);
                 preparedStatement.setInt(10, totalNotif);
-                preparedStatement.setInt(11, id);
+                preparedStatement.setString(11, listChatId);
+                preparedStatement.setInt(12, id);
                 int rowsUpdated = preparedStatement.executeUpdate();
                 return rowsUpdated > 0;
             } catch (Exception e) {
@@ -160,7 +161,8 @@ public class UserController extends DbConfig {
                     }
                     String sellerMode = userResultSet.getString("sellerMode");
                     int totalNotif = userResultSet.getInt("totalNotif");
-                    user = new User(id, name, username, password, email, alamat, phone, gender, photoProfile, sellerMode, totalNotif);
+                    String listChatId = userResultSet.getString("listChatId");
+                    user = new User(id, name, username, password, email, alamat, phone, gender, photoProfile, sellerMode, totalNotif, listChatId);
                 }
             }
         } catch (Exception e) {
@@ -195,7 +197,8 @@ public class UserController extends DbConfig {
                 }
                 String sellerMode = resultSet.getString("sellerMode");
                 int totalNotif = resultSet.getInt("totalNotif");
-                User user = new User(id, name, username, password, email, alamat, phone, gender, photoProfile, sellerMode, totalNotif);
+                String listChatId = resultSet.getString("listChatId");
+                User user = new User(id, name, username, password, email, alamat, phone, gender, photoProfile, sellerMode, totalNotif, listChatId);
                 users.add(user);
             }
         } catch (Exception e) {

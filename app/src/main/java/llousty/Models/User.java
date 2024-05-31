@@ -12,8 +12,9 @@ public class User extends Model {
     private ImageView photoFile;
     private String sellerMode;
     private int totalNotif;
+    private String listChatId;
     public User(int id, String name, String username, String password, String email, String alamat, String phone,
-            String gender, ImageView photoFile, String sellerMode, int totalNotif) {
+            String gender, ImageView photoFile, String sellerMode, int totalNotif, String listChatId) {
         super(id);
         this.name = name;
         this.username = username;
@@ -25,6 +26,7 @@ public class User extends Model {
         this.photoFile = photoFile;
         this.sellerMode = sellerMode;
         this.totalNotif = totalNotif;
+        this.listChatId = listChatId;
     }
     public String getName() {
         return name;
@@ -85,5 +87,11 @@ public class User extends Model {
     }
     public void setTotalNotif(int totalNotif) {
         this.totalNotif = totalNotif;
+    }
+    public String getListChatId() {
+        return listChatId;
+    }
+    public void setListChatId(String listChatId) {
+        this.listChatId = listChatId;
     }
 }
