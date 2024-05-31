@@ -1,8 +1,12 @@
 package llousty.scene;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,7 +33,7 @@ public class TransactionScene {
         this.stage = stage;
     }
 
-    public void show(int userId) throws SQLException{
+    public void show(int userId) throws SQLException, UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException{
         List<Transaction> listTransactions = TransactionController.getAllTransactionByUserId(userId);
         ObservableList<Transaction> observableData = FXCollections.observableArrayList(listTransactions);
         TableView<Transaction> table = new TableView<>();
@@ -86,7 +90,7 @@ public class TransactionScene {
                             if (TransactionController.deleteTransaction(transactionId)) {
                                 try {
                                     new TransactionScene(stage).show(userId);
-                                } catch (SQLException e) {
+                                } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
                                     e.printStackTrace();
                                 }
                             } else {
@@ -136,7 +140,7 @@ public class TransactionScene {
 
         //Main
         Navbar navbar = new Navbar();
-        VBox transactionRoot = new VBox(navbar.getNavbar(stage, userId), table);
+        VBox transactionRoot = new VBox(Navbar.getNavbar(stage, userId), table);
 
 
         Scene scene = new Scene(transactionRoot, App.getWidth(), App.getHeight());

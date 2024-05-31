@@ -12,8 +12,6 @@ import llousty.Models.Conversation;
 import llousty.config.DbConfig;
 
 public class ConversationController extends DbConfig{
-    private static final ReentrantLock databaseLock = new ReentrantLock();
-    private static final Object lock = new Object();
     //CREATE
     public static boolean addConversation(String participantsId, String messageIdList){
         query = "INSERT INTO conversation (participantsId, messageIdList) VALUES (?, ?)";

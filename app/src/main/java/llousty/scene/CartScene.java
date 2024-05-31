@@ -1,8 +1,12 @@
 package llousty.scene;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,12 +18,10 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import llousty.App;
 import llousty.Models.Cart;
@@ -28,9 +30,7 @@ import llousty.Models.User;
 import llousty.Models.Variant;
 import llousty.Utils.DateGenerator;
 import llousty.Utils.RemoveIndex;
-import llousty.Utils.StringListConverter;
 import llousty.Utils.imageSet;
-import llousty.Utils.photoUploader;
 import llousty.Utils.priceFormatter;
 import llousty.components.Navbar;
 import llousty.controller.CartController;
@@ -60,7 +60,7 @@ public class CartScene {
         this.stage = stage;
     }
 
-    public void show(int userId) throws SQLException{
+    public void show(int userId) throws SQLException, UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException{
         User user = UserController.getUserById(userId);
         List<Cart> carts = CartController.getAllCartByUserId(userId);
         if (carts.size() == 0) {
@@ -225,7 +225,7 @@ public class CartScene {
                 productImage.setOnMouseClicked(e->{
                     try {
                         new ProductScene(stage).show(userId, product.getId());
-                    } catch (SQLException e1) {
+                    } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e1) {
                         e1.printStackTrace();
                     }
                 });
@@ -279,7 +279,7 @@ public class CartScene {
     
     
             Navbar navbar = new Navbar();
-            VBox cartRoot = new VBox(navbar.getNavbar(stage, userId), cartDisplay);
+            VBox cartRoot = new VBox(Navbar.getNavbar(stage, userId), cartDisplay);
     
     
             Scene scene = new Scene(cartRoot, App.getWidth(), App.getHeight());

@@ -1,9 +1,11 @@
 package llousty.scene;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.checkerframework.checker.units.qual.min;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,13 +16,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import llousty.App;
 import llousty.Models.Comment;
@@ -29,7 +27,6 @@ import llousty.Models.User;
 import llousty.Models.Variant;
 import llousty.Utils.RateMaker;
 import llousty.Utils.imageSet;
-import llousty.Utils.priceFormatter;
 import llousty.components.Navbar;
 import llousty.controller.CommentsController;
 import llousty.controller.ProductController;
@@ -45,7 +42,7 @@ public class ProductScene {
         this.stage = stage;
     }
 
-    public void show(int userId, int productId) throws SQLException{
+    public void show(int userId, int productId) throws SQLException, UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException{
         User user = UserController.getUserById(userId);
         Product product = ProductController.getProductById(productId);
         List<Comment> comments = CommentsController.getAllCommentByProductId(productId);
@@ -227,7 +224,7 @@ public class ProductScene {
                     // Refresh the scene
                     try {
                         new ProductScene(stage).show(userId, productId);
-                    } catch (SQLException e1) {
+                    } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e1) {
                         e1.printStackTrace();
                     }
                 }
@@ -242,7 +239,7 @@ public class ProductScene {
         scrollPane.setFitToWidth(true);
         
         Navbar navbar = new Navbar();
-        VBox profileRoot = new VBox(navbar.getNavbar(stage, userId), scrollPane);
+        VBox profileRoot = new VBox(Navbar.getNavbar(stage, userId), scrollPane);
 
 
         Scene scene = new Scene(profileRoot, App.getWidth(), App.getHeight());

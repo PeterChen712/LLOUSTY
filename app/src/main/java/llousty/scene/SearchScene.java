@@ -1,7 +1,11 @@
 package llousty.scene;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -44,8 +48,11 @@ public class SearchScene {
         int column = 0;
         int row = 0;
 
+        boolean notFoundBoolean = true;
+
         for (Product product : listProducts) {
             if (SearchEngine.containsSearchName(product.getName(), filter)) { 
+                notFoundBoolean = false;
                 
                 ImageView productImage = imageSet.setImages(product.getProductPhoto(), 150, 150);
                 productImage.setPreserveRatio(true);
@@ -54,7 +61,6 @@ public class SearchScene {
                 productBackground.getStyleClass().add("productBackground");
                 
                 StackPane productView = new StackPane(productBackground, productImage);
-    
     
                 Label productName = new Label(product.getName());
                 productName.getStyleClass().add("productName");
@@ -70,10 +76,9 @@ public class SearchScene {
                 productBox.setOnMouseClicked(e->{
                     try {
                         new ProductScene(stage).show(id, product.getId());
-                    } catch (SQLException e1) {
+                    } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e1) {
                         e1.printStackTrace();
                     }
-                    System.out.println("wowo");
                 });
     
                 productLayout.add(productBox, column, row);
@@ -84,14 +89,16 @@ public class SearchScene {
                     row++;
                 }
             }
-            else{
-                ImageView notFoundImage = imageSet.setImages("/images/default/nullNotFound.png", 350, 345);
-                Label notfound = new Label();
-                notfound.setGraphic(notFoundImage);
-                HBox makeCenter = new HBox(notfound);
-                makeCenter.setPadding(new Insets(0, 0, 0, 200));
-                productLayout.getChildren().add(makeCenter);
-            }
+        }
+        
+        if (notFoundBoolean) {
+            ImageView notFoundImage = imageSet.setImages("/images/default/nullNotFound.png", 350, 345);
+            Label notfound = new Label();
+            notfound.setGraphic(notFoundImage);
+            HBox makeCenter = new HBox(notfound);
+            makeCenter.setPadding(new Insets(0, 0, 0, 200));
+            productLayout.getChildren().add(makeCenter);
+            
         }
         return productLayout;
     }
@@ -100,37 +107,40 @@ public class SearchScene {
         List<User> users = UserController.getAllUsers();
         VBox profileLayout = new VBox();
         for (User user : users) {
-            if (SearchEngine.containsSearchName(user.getName(), filter) || SearchEngine.containsSearchName(user.getUsername(), filter)) { 
-                ImageView profileLogo = imageSet.setImages(user.getPhotoFile(), 40, 40);
-                profileLogo.setPreserveRatio(true);
-                ImageView border = imageSet.setImages("/images/navbar/border.png", 40, 40);
-                StackPane imageCombine = new StackPane(profileLogo, border);
-                imageCombine.setAlignment(Pos.CENTER_LEFT);
-                Button profileMenu = new Button();
-                profileMenu.getStyleClass().add("navbarIcon");
-                profileMenu.setGraphic(imageCombine);
-
-                profileMenu.setOnAction(e->{
-                    //ke profile scene
-                    System.out.println("gg bang");
-                });
-                System.out.println("ke sini");
+            if (SearchEngine.containsSearchName(user.getName(), filter) || SearchEngine.containsSearchName(user.getUsername(), filter)) {
+                if (user.getId() != id) {
+                    
+                    ImageView profileLogo = imageSet.setImages(user.getPhotoFile(), 40, 40);
+                    ImageView border = imageSet.setImages("/images/navbar/border.png", 40, 40);
+                    StackPane imageCombine = new StackPane(profileLogo, border);
+                    imageCombine.setAlignment(Pos.CENTER_LEFT);
+                    Button profileMenu = new Button();
+                    profileMenu.getStyleClass().add("navbarIcon");
+                    profileMenu.setGraphic(imageCombine);
     
+                    profileMenu.setOnAction(e->{
+                        try {
+                            new ProfileScene(stage).show(user.getId(), id);
+                        } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                    });
+        
+                    Label profileName = new Label(user.getName());
+                    profileName.getStyleClass().add("productNameCart");
+                    Label profileUser = new Label(user.getUsername());
+                    profileUser.getStyleClass().add("sellerName");
+                    Label gap = new Label();
+                    gap.getStyleClass().add("gap2");
+                    
+                    VBox profileInfo = new VBox(profileName, profileUser);
+                    profileInfo.setSpacing(10);
     
-                Label profileName = new Label(user.getName());
-                profileName.getStyleClass().add("productNameCart");
-                Label profileUser = new Label(user.getUsername());
-                profileUser.getStyleClass().add("sellerName");
-                Label gap = new Label();
-                gap.getStyleClass().add("gap2");
-                
-                VBox profileInfo = new VBox(profileName, profileUser);
-                profileInfo.setSpacing(10);
-
-                HBox profileBar = new HBox(10, profileMenu, profileInfo);
-                // profileLayout = new VBox(gap, profileBar);
-                profileLayout.getChildren().addAll(gap, profileBar);
-                
+                    HBox profileBar = new HBox(10, profileMenu, profileInfo);
+                    // profileLayout = new VBox(gap, profileBar);
+                    profileLayout.getChildren().addAll(gap, profileBar);
+                    
+                }
                 
             }
             else{
@@ -145,7 +155,7 @@ public class SearchScene {
         return profileLayout;
     }
 
-    public void show(int userId) throws SQLException{    
+    public void show(int userId) throws SQLException, UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException{    
         Navbar navbar = new Navbar();
 
 
@@ -185,7 +195,7 @@ public class SearchScene {
 
 
         //Main
-        VBox searchRoot = new VBox(navbar.getNavbar(stage, userId), filterBar, scrollPane);
+        VBox searchRoot = new VBox(Navbar.getNavbar(stage, userId), filterBar, scrollPane);
 
 
         Scene scene = new Scene(searchRoot, App.getWidth(), App.getHeight());

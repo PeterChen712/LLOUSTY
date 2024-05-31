@@ -1,20 +1,24 @@
 package llousty.Models;
 
 public class Notif extends Model{
+    private String title;
     private String text;
     private int userId;
     private String dateSent;
-    private int cartId;
-    private int chatId;
-    private int productId;
-    public Notif(int id, String text, int userId, String dateSent, int cartId, int chatId, int productId) {
+    private String type;
+    public Notif(int id, String title, String text, int userId, String dateSent, String type) {
         super(id);
+        this.title = title;
         this.text = text;
         this.userId = userId;
         this.dateSent = dateSent;
-        this.cartId = cartId;
-        this.chatId = chatId;
-        this.productId = productId;
+        this.type = type;
+    }
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
     }
     public String getText() {
         return text;
@@ -34,22 +38,10 @@ public class Notif extends Model{
     public void setDateSent(String dateSent) {
         this.dateSent = dateSent;
     }
-    public int getCartId() {
-        return cartId;
+    public String getType() {
+        return type;
     }
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
-    }
-    public int getChatId() {
-        return chatId;
-    }
-    public void setChatId(int chatId) {
-        this.chatId = chatId;
-    }
-    public int getProductId() {
-        return productId;
-    }
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setType(String type) {
+        this.type = type;
     }
 }

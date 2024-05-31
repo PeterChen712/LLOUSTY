@@ -3,7 +3,12 @@ package llousty.scene;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -32,27 +37,26 @@ import llousty.controller.UserController;
 
 public class ProfileScene {
     // private boolean sellerMode = false;
-    private static Stage stage;
-    private File selectedFile;
+    private Stage stage;
 
     public ProfileScene(Stage stage) {
         this.stage = stage;
     }
 
-    private void showSellerMode(int userId, StackPane sisiKiriProfileScene) throws SQLException {
+    private void showSellerMode(int userId, StackPane sisiKiriProfileScene) throws SQLException, UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
         
         
         
         //MAIN 
         
-        VBox navbar = Navbar.getNavbarSeller(stage, userId);
+        VBox navbar = Navbar.getNavbar(stage, userId);
         Scene scene = new Scene(navbar, App.getWidth(), App.getHeight());
         scene.getStylesheets().add("styles.css");
         stage.setScene(scene);
         stage.show();
     }
 
-    public void show(int userId) throws SQLException {
+    public void show(int userId, int otherUserId) throws SQLException, UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
         User user = UserController.getUserById(userId);
         ImageView fotoProfil = imageSet.setImages(user.getPhotoFile(), 103, 98);
         ImageView borderPict = imageSet.setImages("/images/product/border.png", 103, 98);
@@ -64,8 +68,16 @@ public class ProfileScene {
         Logout.getStyleClass().add("category");
         MyProfile.getStyleClass().add("category");
         SellerMode.getStyleClass().add("category");
-        VBox menuProfil = new VBox(40, fotoPane, MyProfile, SellerMode, Logout);
+
+        VBox menuProfil = new VBox();
+        if (userId == otherUserId) {
+            menuProfil.getChildren().addAll(fotoPane, MyProfile, SellerMode, Logout);
+        }else{
+            menuProfil.getChildren().addAll(fotoPane);
+        }
         menuProfil.setAlignment(Pos.CENTER);
+        menuProfil.setSpacing(40);
+
         Rectangle sisiKiriProfileSceneElm = new Rectangle(201, 410);
         sisiKiriProfileSceneElm.setStyle("-fx-fill: #ffffff; -fx-border-radius: 7");
         StackPane sisiKiriProfileScene = new StackPane(sisiKiriProfileSceneElm, menuProfil);
@@ -74,22 +86,22 @@ public class ProfileScene {
         // Tambahkan tombol unggah foto
         Button uploadPhotoButton = new Button("Upload Photo");
         uploadPhotoButton.getStyleClass().add("ButtonProfil");
-        menuProfil.getChildren().add(uploadPhotoButton);
+        if (userId == otherUserId) {
+            menuProfil.getChildren().add(uploadPhotoButton);
+        }
 
         uploadPhotoButton.setOnAction(e -> {
             File file = photoUploader.upload();
             if (file != null) {
                 ImageView newFotoProfil = imageSet.setImages(file, 103, 98);
                 fotoPane.getChildren().set(0, newFotoProfil);
-                file = file;
 
                 try {
                     boolean isSuccesfullUpdated = UserController.updateUser(userId,
                             user.getName(), user.getUsername(),
                             user.getPassword(), user.getEmail(), user.getAlamat(), user.getPhone(), user.getGender(),
-                            file);
+                            file, user.getSellerMode(), user.getTotalNotif());
                 } catch (FileNotFoundException e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
             }
@@ -116,7 +128,7 @@ public class ProfileScene {
                 // sellerMode = true;
                 try {
                     new ProfileScene(stage).showSellerMode(userId, sisiKiriProfileScene);
-                } catch (SQLException e1) {
+                } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e1) {
                     e1.printStackTrace();
                 }
             } else {
@@ -215,6 +227,11 @@ public class ProfileScene {
         addressField.getStyleClass().add("fieldMyProfil");
 
         Button btnEdit = new Button("Edit Informasi Profil dan Detail Alamat");
+        if (userId == otherUserId) {
+            btnEdit.setVisible(true);
+        } else{
+            btnEdit.setVisible(false);
+        }
         Button btnSaveChanges = new Button("Simpan Perubahan");
         btnEdit.getStyleClass().add("ButtonProfil");
         btnSaveChanges.getStyleClass().add("ButtonProfil");
@@ -280,6 +297,7 @@ public class ProfileScene {
         // Mengatur ukuran GridPane
         detailAlamatGrid.setMinWidth(400);
         detailAlamatGrid.setMinHeight(100);
+
         StackPane btnEditdanSave = new StackPane(btnSaveChanges, btnEdit);
         btnEditdanSave.setAlignment(Pos.CENTER);
         VBox addressBox = new VBox(10, detailAlamatLabel, detailAlamatGrid, btnEditdanSave);

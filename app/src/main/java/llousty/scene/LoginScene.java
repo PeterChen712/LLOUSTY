@@ -1,6 +1,10 @@
 package llousty.scene;
 
+import java.io.IOException;
 import java.sql.SQLException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,21 +14,16 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import llousty.App;
 import llousty.Models.User;
 import llousty.Utils.imageSet;
-import llousty.config.DbConfig;
-import llousty.controller.UserController;
 import llousty.controller.UserController;
 
 public class LoginScene {
@@ -69,15 +68,14 @@ public class LoginScene {
                 return;
             }
 
-            User user = new UserController().validasiLogin(username, password);
+            User user = UserController.validasiLogin(username, password);
             if (user != null) {
                 int id = user.getId();
                 status.setText("Berhasil");
                 HomeScene homeScene = new HomeScene(stage);
                 try {
                     homeScene.show(id);
-                } catch (SQLException e1) {
-                    // TODO Auto-generated catch block
+                } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e1) {
                     e1.printStackTrace();
                 }
             } else {

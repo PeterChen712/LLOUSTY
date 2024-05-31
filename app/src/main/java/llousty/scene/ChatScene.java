@@ -1,9 +1,12 @@
 package llousty.scene;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -46,7 +49,7 @@ public class ChatScene {
     }
 
     
-    public void show(int targerUserId, int userId) throws SQLException, FileNotFoundException{
+    public void show(int targerUserId, int userId) throws SQLException, UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException{
         User mySelf = UserController.getUserById(userId);
         User target = UserController.getUserById(targerUserId);
         Conversation conversation = getFromDB(targerUserId, userId);
@@ -170,7 +173,7 @@ public class ChatScene {
                             new ChatScene(stage).show(targerUserId, userId);
                             return;
                         }
-                    } catch (FileNotFoundException | SQLException e1) {
+                    } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e1) {
                         e1.printStackTrace();
                     }
                     
@@ -188,7 +191,7 @@ public class ChatScene {
 
 
         Navbar navbar = new Navbar();
-        VBox chatRoot = new VBox(navbar.getNavbar(stage, userId), profileBar, vBoxMainContent);
+        VBox chatRoot = new VBox(Navbar.getNavbar(stage, userId), profileBar, vBoxMainContent);
 
 
         Scene scene = new Scene(chatRoot, App.getWidth(), App.getHeight());

@@ -1,7 +1,11 @@
 package llousty.scene;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -67,7 +70,7 @@ public class HomeScene {
                 productBox.setOnMouseClicked(e->{
                     try {
                         new ProductScene(stage).show(id, product.getId());
-                    } catch (SQLException e1) {
+                    } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e1) {
                         e1.printStackTrace();
                     }
                     System.out.println("wowo");
@@ -85,8 +88,7 @@ public class HomeScene {
         return productLayout;
     }
 
-    private void showMakeUp(int id, HBox category) throws SQLException{
-        Navbar navbar = new Navbar();
+    private void showMakeUp(int id, HBox category) throws SQLException, UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException{
         VBox mainContent = new VBox(category, showCategory(stage, "Make Up", id));
         mainContent.setSpacing(10);
         mainContent.setPrefWidth(750);
@@ -94,7 +96,7 @@ public class HomeScene {
         ScrollPane scrollPane = new ScrollPane(mainContent);
         scrollPane.setFitToWidth(true);
         
-        VBox homeRoot = new VBox(navbar.getNavbar(stage, id), scrollPane);
+        VBox homeRoot = new VBox(Navbar.getNavbar(stage, id), scrollPane);
 
         Scene scene = new Scene(homeRoot, App.getWidth(), App.getHeight());
         scene.getStylesheets().add("styles.css");
@@ -102,8 +104,7 @@ public class HomeScene {
         stage.show();
     }
 
-    private void showSkinCare(int id, HBox category) throws SQLException{
-        Navbar navbar = new Navbar();
+    private void showSkinCare(int id, HBox category) throws SQLException, UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException{
         VBox mainContent = new VBox(category, showCategory(stage, "Skin Care", id));
         mainContent.setSpacing(10);
         mainContent.setPrefWidth(750);
@@ -111,7 +112,9 @@ public class HomeScene {
         ScrollPane scrollPane = new ScrollPane(mainContent);
         scrollPane.setFitToWidth(true);
 
-        VBox homeRoot = new VBox(navbar.getNavbar(stage, id), scrollPane);
+        ImageView ads = imageSet.setImages("/images/home/ad.png", 720, 150);
+
+        VBox homeRoot = new VBox(Navbar.getNavbar(stage, id), ads, scrollPane);
 
         Scene scene = new Scene(homeRoot, App.getWidth(), App.getHeight());
         scene.getStylesheets().add("styles.css");
@@ -120,8 +123,7 @@ public class HomeScene {
         stage.show();
     }
 
-    private void showFragrance(int id, HBox category) throws SQLException{
-        Navbar navbar = new Navbar();
+    private void showFragrance(int id, HBox category) throws SQLException, UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException{
         VBox mainContent = new VBox(category, showCategory(stage, "Fragrance", id));
         mainContent.setSpacing(10);
         mainContent.setPrefWidth(750);
@@ -129,7 +131,7 @@ public class HomeScene {
         ScrollPane scrollPane = new ScrollPane(mainContent);
         scrollPane.setFitToWidth(true);
 
-        VBox homeRoot = new VBox(navbar.getNavbar(stage, id), scrollPane);
+        VBox homeRoot = new VBox(Navbar.getNavbar(stage, id), scrollPane);
 
         Scene scene = new Scene(homeRoot, App.getWidth(), App.getHeight());
         scene.getStylesheets().add("styles.css");
@@ -139,7 +141,7 @@ public class HomeScene {
     }
 
 
-    public void show(int id) throws SQLException {
+    public void show(int id) throws SQLException, UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
         //MENU
         Label makeUp = new Label("MAKE UP");
         makeUp.getStyleClass().add("category");
@@ -153,7 +155,6 @@ public class HomeScene {
 
 
         //CATEGORY
-        Navbar navbar = new Navbar();
         VBox mainContent = new VBox(category, showCategory(stage, "Make Up", id));
         makeUp.setStyle("-fx-background-color: #DEA0BC;");
         mainContent.setSpacing(10);
@@ -163,7 +164,7 @@ public class HomeScene {
         scrollPane.setFitToWidth(true);
 
 
-        VBox homeRoot = new VBox(navbar.getNavbar(stage, id), scrollPane);
+        VBox homeRoot = new VBox(Navbar.getNavbar(stage, id), scrollPane);
 
 
         Scene scene = new Scene(homeRoot, App.getWidth(), App.getHeight());
@@ -180,7 +181,7 @@ public class HomeScene {
             fragrance.setStyle("-fx-background-color: #ffffff;");
             try {
                 new HomeScene(stage).showMakeUp(id, category);
-            } catch (SQLException e1) {
+            } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e1) {
                 e1.printStackTrace();
             }
         });
@@ -191,7 +192,7 @@ public class HomeScene {
             fragrance.setStyle("-fx-background-color: #ffffff;");
             try {
                 new HomeScene(stage).showSkinCare(id, category);
-            } catch (SQLException e1) {
+            } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e1) {
                 e1.printStackTrace();
             }
         });
@@ -202,7 +203,7 @@ public class HomeScene {
             skinCare.setStyle("-fx-background-color: #ffffff;");
             try {
                 new HomeScene(stage).showFragrance(id, category);
-            } catch (SQLException e1) {
+            } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e1) {
                 e1.printStackTrace();
             }
         });

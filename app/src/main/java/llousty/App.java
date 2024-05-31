@@ -1,7 +1,10 @@
 package llousty;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -27,7 +30,7 @@ public class App extends Application {
     private final Image icon = new Image(getClass().getResourceAsStream("/images/logo/logo2.png"));
 
     @Override
-    public void start(Stage primaryStage) throws SQLException, FileNotFoundException {
+    public void start(Stage primaryStage) throws SQLException, UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
         LoginScene firstScene = new LoginScene(primaryStage);
         // firstScene.show();
         HomeScene homeScene = new HomeScene(primaryStage);

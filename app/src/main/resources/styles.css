@@ -98,9 +98,8 @@
     -fx-background-color:#F1F1F1; 
     -fx-border-color: transparent;
     /* -fx-border-width: 10; */
-    -fx-font-size: 16px; 
     -fx-font-weight: bold;
-    -fx-pref-width: 100px; 
+    -fx-pref-width: 80px; 
     -fx-pref-height: 50px;
 }
 
@@ -113,7 +112,7 @@
     -fx-background-radius: 20 0 0 20;
     /* -fx-background-color: -fx-control-inner-background; */
     -fx-font-size: 14px;
-    -fx-pref-width: 340px;
+    -fx-pref-width: 300px;
     -fx-pref-height: 40px;
     /* -fx-border-color: #000000;  */
     /* -fx-border-width: 2;  */
@@ -611,11 +610,6 @@
     -fx-pref-height: 30px;
 }
 
-.backNavbarSeller{
-    -fx-background-color:#000000; 
-    -fx-pref-width: 750px; 
-    -fx-pref-height: 50px;
-}
 
 .navbarSeller{
     /* -fx-background-color: transparent; */
@@ -626,7 +620,7 @@
     /* -fx-border-width: 10; */
     -fx-font-size: 16px; 
     -fx-font-weight: bold;
-    -fx-pref-width: 100px; 
+    -fx-pref-width: 80px;
     -fx-pref-height: 50px;
 }
 

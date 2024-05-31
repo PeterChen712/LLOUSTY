@@ -62,7 +62,7 @@ public class UserController extends DbConfig {
 
     // CREATE
     public static boolean registAdd(String name, String username, String password, String email) {
-        query = "INSERT INTO user (name,  username, password, email) VALUES (?,?,?,?)";
+        query = "INSERT INTO user (name,  username, password, email, sellerMode) VALUES (?,?,?,?,?)";
         try {
             getConnection();
             preparedStatement = connection.prepareStatement(query);
@@ -71,6 +71,7 @@ public class UserController extends DbConfig {
             preparedStatement.setString(3, PasswordHasher.doHashing(password));// password yang masuk ke database di
                                                                                // hashing
             preparedStatement.setString(4, email);
+            preparedStatement.setString(5, "User");
             preparedStatement.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -81,7 +82,7 @@ public class UserController extends DbConfig {
 
     // UPDATE
     public static boolean updateUser(int id, String name, String username, String password, String email, String alamat,
-            String phone, String gender, File selectedFile) throws FileNotFoundException {
+            String phone, String gender, File selectedFile, String sellerMode, int totalNotif) throws FileNotFoundException {
 
         if (selectedFile != null) {
             try {
@@ -96,7 +97,9 @@ public class UserController extends DbConfig {
                 preparedStatement.setString(6, phone);
                 preparedStatement.setString(7, gender);
                 preparedStatement.setBinaryStream(8, new FileInputStream(selectedFile), (int) selectedFile.length());
-                preparedStatement.setInt(9, id);
+                preparedStatement.setString(9, sellerMode);
+                preparedStatement.setInt(10, totalNotif);
+                preparedStatement.setInt(11, id);
                 int rowsUpdated = preparedStatement.executeUpdate();
                 return rowsUpdated > 0;
             } catch (Exception e) {
@@ -110,8 +113,7 @@ public class UserController extends DbConfig {
 
     // UPDATE
     public static boolean updateUserMyProfile(int id, String name, String username, String password, String email,
-            String alamat,
-            String phone, String gender) throws FileNotFoundException {
+            String alamat, String phone, String gender) throws FileNotFoundException {
         try {
             getConnection();
             String query = "UPDATE user SET name=?, username=?, password=?, email=?, alamat=?, phone=?, gender=? WHERE id=?";
@@ -156,7 +158,9 @@ public class UserController extends DbConfig {
                     } else {
                         photoProfile = new ImageView("/images/default/nullProfile.jpg");
                     }
-                    user = new User(id, name, username, password, email, alamat, phone, gender, photoProfile);
+                    String sellerMode = userResultSet.getString("sellerMode");
+                    int totalNotif = userResultSet.getInt("totalNotif");
+                    user = new User(id, name, username, password, email, alamat, phone, gender, photoProfile, sellerMode, totalNotif);
                 }
             }
         } catch (Exception e) {
@@ -189,7 +193,9 @@ public class UserController extends DbConfig {
                 } else {
                     photoProfile = new ImageView("/images/default/nullProfile.jpg");
                 }
-                User user = new User(id, name, username, password, email, alamat, phone, gender, photoProfile);
+                String sellerMode = resultSet.getString("sellerMode");
+                int totalNotif = resultSet.getInt("totalNotif");
+                User user = new User(id, name, username, password, email, alamat, phone, gender, photoProfile, sellerMode, totalNotif);
                 users.add(user);
             }
         } catch (Exception e) {

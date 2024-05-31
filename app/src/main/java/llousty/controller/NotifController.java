@@ -1,5 +1,6 @@
 package llousty.controller;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,17 +9,16 @@ import llousty.config.DbConfig;
 
 public class NotifController extends DbConfig{
      //CREATE
-    public static boolean addNotif(String text, int userId, String dateSent, int cartId, int chatId, int productId){
-        query = "INSERT INTO notif (text, userId, dateSent, cartId, chatId, productId) VALUES (?, ?, ?, ?, ?, ?)";
+    public static boolean addNotif(String title, String text, int userId, String dateSent, String type){
+        query = "INSERT INTO notif (title, text, userId, dateSent, type) VALUES (?, ?, ?, ?, ?)";
         try {
             getConnection();
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, text);
-            preparedStatement.setInt(2, userId);
-            preparedStatement.setString(3, dateSent);
-            preparedStatement.setInt(4, cartId);
-            preparedStatement.setInt(5, chatId);
-            preparedStatement.setInt(6, productId);
+            preparedStatement.setString(1, title);
+            preparedStatement.setString(2, text);
+            preparedStatement.setInt(3, userId);
+            preparedStatement.setString(4, dateSent);
+            preparedStatement.setString(5, type);
             preparedStatement.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -38,18 +38,38 @@ public class NotifController extends DbConfig{
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
+                String title = resultSet.getString("title");
                 String text = resultSet.getString("text");
                 String dateSent = resultSet.getString("dateSent");
-                int cartId = resultSet.getInt("cartId");
-                int chatId = resultSet.getInt("chatId");
-                int productId = resultSet.getInt("productId");
-                Notif notif = new Notif(id, text, userId, dateSent, cartId, chatId, productId);
+                String type = resultSet.getString("type");
+                Notif notif = new Notif(id, title, text, userId, dateSent, type);
                 notifs.add(notif);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return notifs;
+    }
+
+
+    //UPDATE
+    public static boolean updateNotif(int id, String title, String text, int userId, String dateSent, String type) throws FileNotFoundException {
+        query = "UPDATE conversation SET title=?, text=?, userId=?, dateSent=?, type=? WHERE id=?";
+        try {
+            getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, title);
+            preparedStatement.setString(2, text);
+            preparedStatement.setInt(3, userId);
+            preparedStatement.setString(4, dateSent);
+            preparedStatement.setString(5, type);
+            preparedStatement.setInt(7, id);
+            int rowsUpdated = preparedStatement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }
