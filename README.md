@@ -32,58 +32,55 @@ LLOUSTY, yang merupakan kepanjangan dari "Marvellous Beauty" yang berarti "Kecan
 ![Login Scene](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/login.png)
 
 ### Regist Scene
-![Regist Scene](regis.png)
+![Regist Scene](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/regis.png)
 
 ### Home Scene (User Biasa)
-![Home Scene (User Biasa)](homeuser.png)
+![Home Scene (User Biasa)](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/homeuser.png)
 
 ### Home Scene (Seller Mode)
-![Home Scene (Seller Mode)](homeseller.png)
+![Home Scene (Seller Mode)](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/homeseller.png)
 
 ### Product Scene (User Biasa)
-![Product Scene (User Biasa)](productuser.png)
+![Product Scene (User Biasa)](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/productuser.png)
 
 ### Product Scene (Seller Mode)
-![Product Scene (Seller Mode)](productseller.png)
+![Product Scene (Seller Mode)](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/productseller.png)
 
 ### Chat Scene (User Biasa)
-![Chat Scene (User Biasa)](chatuser.png)
+![Chat Scene (User Biasa)](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/chatuser.png)
 
 ### Chat Scene (Seller Mode)
-![Chat Scene (Seller Mode)](chatseller.png)
+![Chat Scene (Seller Mode)](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/chatseller.png)
 
 ### My Order Scene (User Biasa)
-![My Order Scene (User Biasa)](orderuser.png)
+![My Order Scene (User Biasa)](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/orderuser.png)
 
 ### My Order Scene (Seller Mode)
-![My Order Scene (Seller Mode)](orderseller.png)
+![My Order Scene (Seller Mode)](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/orderseller.png)
 
 ### Searching Scene (User Biasa)
-![Searching Scene (User Biasa)](searchuser.png)
+![Searching Scene (User Biasa)](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/searchuser.png)
 
 ### Searching Scene (Seller Mode)
-![Searching Scene (Seller Mode)](searchseller.png)
+![Searching Scene (Seller Mode)](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/searchseller.png)
 
 ### Profil Scene (User Biasa)
-![Profil Scene (User Biasa)](profileuser.png)
+![Profil Scene (User Biasa)](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/profileuser.png)
 
 ### Profil Scene (Seller Mode)
-![Profil Scene (Seller Mode)](profileuser.png)
+![Profil Scene (Seller Mode)](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/sellermode.png)
 
 ### Cart Scene (User Biasa)
-![Cart Scene (User Biasa)](cartuser.png)
+![Cart Scene (User Biasa)](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/cartuser.png)
 
 ### Cart Scene (Seller Mode)
-![Cart Scene (Seller Mode)](cartseller.png)
+![Cart Scene (Seller Mode)](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/cartseller.png)
 
 ### Notif Scene (User Biasa)
-![Notif Scene (User Biasa)](notifuser.png)
+![Notif Scene (User Biasa)](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/notifuser.png)
 
 ### Notif Scene (Seller Mode)
-![Notif Scene (Seller Mode)](notifseller.png)
-
-### Seller Mode Scene
-![Seller Mode Scene](sellermode.png)
+![Notif Scene (Seller Mode)](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/notifseller.png)
 
 ## Pengujian Aplikasi
 
