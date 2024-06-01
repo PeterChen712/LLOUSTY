@@ -32,9 +32,9 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws SQLException, UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
         LoginScene firstScene = new LoginScene(primaryStage);
-        // firstScene.show();
+        firstScene.show();
         HomeScene homeScene = new HomeScene(primaryStage);
-        homeScene.show(11);
+        // homeScene.show(11);
 
         ChatScene chatScene = new ChatScene(primaryStage);
         // chatScene.show(12, 11);
