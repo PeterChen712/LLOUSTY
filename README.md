@@ -30,6 +30,9 @@ LLOUSTY, yang merupakan kepanjangan dari "Marvellous Beauty" yang berarti "Kecan
 
 Terdapat beberapa screenshot yang menunjukkan tampilan aplikasi, seperti Login Scene, Regist Scene, Home Scene, Product Scene, Chat Scene, My Order Scene, Searching Scene, Profil Scene, Cart Scene, dan Notif Scene.
 
+## Tampilan Aplikasi
+![Login Scene](readme\login.png)
+
 ## Pengujian Aplikasi
 
 Terdapat daftar pengujian yang dilakukan pada aplikasi, dengan deskripsi pengujian, hasil yang diharapkan, dan hasil dari pengujian tersebut.
