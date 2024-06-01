@@ -28,10 +28,62 @@ LLOUSTY, yang merupakan kepanjangan dari "Marvellous Beauty" yang berarti "Kecan
 
 ## Screenshots
 
-Terdapat beberapa screenshot yang menunjukkan tampilan aplikasi, seperti Login Scene, Regist Scene, Home Scene, Product Scene, Chat Scene, My Order Scene, Searching Scene, Profil Scene, Cart Scene, dan Notif Scene.
-
-## Tampilan Aplikasi
+### Login Scene
 ![Login Scene](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/login.png)
+
+### Regist Scene
+![Regist Scene](regis.png)
+
+### Home Scene (User Biasa)
+![Home Scene (User Biasa)](homeuser.png)
+
+### Home Scene (Seller Mode)
+![Home Scene (Seller Mode)](homeseller.png)
+
+### Product Scene (User Biasa)
+![Product Scene (User Biasa)](productuser.png)
+
+### Product Scene (Seller Mode)
+![Product Scene (Seller Mode)](productseller.png)
+
+### Chat Scene (User Biasa)
+![Chat Scene (User Biasa)](chatuser.png)
+
+### Chat Scene (Seller Mode)
+![Chat Scene (Seller Mode)](chatseller.png)
+
+### My Order Scene (User Biasa)
+![My Order Scene (User Biasa)](orderuser.png)
+
+### My Order Scene (Seller Mode)
+![My Order Scene (Seller Mode)](orderseller.png)
+
+### Searching Scene (User Biasa)
+![Searching Scene (User Biasa)](searchuser.png)
+
+### Searching Scene (Seller Mode)
+![Searching Scene (Seller Mode)](searchseller.png)
+
+### Profil Scene (User Biasa)
+![Profil Scene (User Biasa)](profileuser.png)
+
+### Profil Scene (Seller Mode)
+![Profil Scene (Seller Mode)](profileuser.png)
+
+### Cart Scene (User Biasa)
+![Cart Scene (User Biasa)](cartuser.png)
+
+### Cart Scene (Seller Mode)
+![Cart Scene (Seller Mode)](cartseller.png)
+
+### Notif Scene (User Biasa)
+![Notif Scene (User Biasa)](notifuser.png)
+
+### Notif Scene (Seller Mode)
+![Notif Scene (Seller Mode)](notifseller.png)
+
+### Seller Mode Scene
+![Seller Mode Scene](sellermode.png)
 
 ## Pengujian Aplikasi
 
