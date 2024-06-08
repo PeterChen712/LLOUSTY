@@ -50,7 +50,7 @@ public class RegistScene implements ShowScene{
         passWord.setPromptText("Password");
         passWord.getStyleClass().add("textfield");
 
-        Text status = new Text("\n");
+        Text status = new Text("\n\n");
         status.getStyleClass().add("textStatus");
 
         Button btnRegist = new Button("register");
@@ -61,21 +61,21 @@ public class RegistScene implements ShowScene{
             String password = passWord.getText();
             String emailRegis = email.getText();
             if (name.isEmpty() || username.isEmpty() || password.isEmpty() || emailRegis.isEmpty()) {
-                status.setText("\ntidak boleh ada yang kosong");
+                status.setText("\n\t  Data cannot be empty\n");
                 return;
             }
             if (!emailRegis.matches("^[\\w._%+-]+@(gmail\\.com|yahoo\\.com)$")) {
-                status.setText("\tEmail harus berakhiran\t\n@gmail.com atau @yahoo.com");
+                status.setText("\t  Example correct email :\t\n   @gmail.com or @yahoo.com\n");
                 return;
             }
 
             if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$")) {
-                status.setText("Password minimal 8 karakter terdiri\nhuruf besar, huruf kecil, dan angka");
+                status.setText("\tPassword at least have 8 \n\t    character containt\n  Uppercase, Lowercase, and digit");
                 return;
             }
 
             if (UserController.isUsernameOrEmailTaken(username, emailRegis)) {
-                status.setText("email atau username \n\ttelah digunakan");
+                status.setText("\t     Email or username \n\t         already taken\n");
                 return;
             }
             UserController.registAdd(name, username, password, emailRegis);
@@ -99,10 +99,11 @@ public class RegistScene implements ShowScene{
 
         HBox hBox = new HBox(loginText, loginLink);
         hBox.setAlignment(Pos.CENTER);
-        VBox vBox = new VBox(labelRegist, status, nama, email, userName, passWord, btnRegist, hBox);
-        vBox.setAlignment(Pos.CENTER);
-        vBox.setSpacing(15);
-        HBox hBox2 = new HBox(vBox);
+        VBox vBox1 = new VBox(labelRegist, nama, email, userName, passWord, btnRegist, hBox);
+        vBox1.setAlignment(Pos.CENTER);
+        vBox1.setSpacing(15);
+        VBox vBox2 = new VBox(status,vBox1);
+        HBox hBox2 = new HBox(vBox2);
 
         StackPane stackPane = new StackPane();
         stackPane.getChildren().addAll(elmPersegi, logo, hBox2);

@@ -72,4 +72,19 @@ public class NotifController extends DbConfig{
         return false;
     }
 
+    //DELETE
+    public static boolean deleteNotif(int id){
+        query = "DELETE FROM notif WHERE id=?";
+        try {
+            getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            int rowsDeleted = preparedStatement.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

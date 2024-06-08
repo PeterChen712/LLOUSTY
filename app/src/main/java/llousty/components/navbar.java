@@ -12,7 +12,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
@@ -27,6 +26,7 @@ import llousty.Utils.imageSet;
 import llousty.controller.NotifController;
 import llousty.controller.UserController;
 import llousty.scene.CartScene;
+import llousty.scene.ChatMenuScene;
 import llousty.scene.HomeScene;
 import llousty.scene.NotifScene;
 import llousty.scene.SearchScene;
@@ -81,16 +81,20 @@ public class Navbar {
         });
 
         // Wishlist Button
-        Label wishlistMenu = new Label("CHAT");
-        wishlistMenu.setStyle("-fx-font-size: 12px;");
+        Label chatMenu = new Label("CHAT");
+        chatMenu.setStyle("-fx-font-size: 12px;");
         if (user.getSellerMode().equals("Seller")) {
-            wishlistMenu.getStyleClass().add("navbarSeller");
+            chatMenu.getStyleClass().add("navbarSeller");
         } else{
-            wishlistMenu.getStyleClass().add("navbar");
+            chatMenu.getStyleClass().add("navbar");
         }
-        wishlistMenu.setAlignment(Pos.CENTER);
-        wishlistMenu.setOnMouseClicked(event -> {
-            System.out.println("wishlist Label diklik!");
+        chatMenu.setAlignment(Pos.CENTER);
+        chatMenu.setOnMouseClicked(event -> {
+            try {
+                new ChatMenuScene(stage).show(id);
+            } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+                e.printStackTrace();
+            }
         });
 
         // Orders Button
@@ -135,31 +139,36 @@ public class Navbar {
         });
 
         //NOTIF
-        ImageView notifLogo;
+        ImageView notifLogo = new ImageView();
         List<Notif> notifs = NotifController.getAllNotifByUserId(id);
         if (user.getSellerMode().equals("Seller")) {
-            if (user.getTotalNotif() == notifs.size()) {
-                notifLogo = imageSet.setImages("/images/navbar/notifSeller.png", 40, 40);
-            }else{
+            if (user.getTotalNotif() < notifs.size()) {
                 notifLogo = imageSet.setImages("/images/navbar/notifPingSeller.png", 40, 40);
-                AudioFile.Audio("/audio/notifAudio.wav");
+            }else{
+                notifLogo = imageSet.setImages("/images/navbar/notifSeller.png", 40, 40);
+                // boolean isSuccesfullUpdated;
+                // try {
+                //     isSuccesfullUpdated = UserController.updateTotalNotif(id, notifs.size());
+                //     System.out.println(isSuccesfullUpdated);
+                // } catch (Exception e) {
+                //     e.printStackTrace();
+                // }
             }
         } else{
-            if (user.getTotalNotif() == notifs.size()) {
-                notifLogo = imageSet.setImages("/images/navbar/notif.png", 40, 40);
-            }else{
+            if (user.getTotalNotif() < notifs.size()) {
                 notifLogo = imageSet.setImages("/images/navbar/notifPing.png", 40, 40);
-                AudioFile.Audio("/audio/notifAudio.wav");
+            }else{
+                notifLogo = imageSet.setImages("/images/navbar/notif.png", 40, 40);
             }
         }
         
         Label notifMenu = new Label();
         notifMenu.setStyle(" -fx-pref-width: 40px;");
-        if (user.getTotalNotif() == notifs.size()) {
-            notifMenu.getStyleClass().add("navbarIconSeller");
-        }else{
-            notifMenu.getStyleClass().add("navbarIcon");
-        }
+        notifMenu.getStyleClass().add("navbarIconSeller");
+        // if (user.getTotalNotif() == notifs.size()) {
+        // }else{
+        //     notifMenu.getStyleClass().add("navbarIcon");
+        // }
         notifMenu.setGraphic(notifLogo);
         notifMenu.setOnMouseClicked(e -> {
             try {
@@ -217,12 +226,13 @@ public class Navbar {
             }
         });
 
-        HBox menu = new HBox(homeMenu, wishlistMenu, ordersMenu, searchBar, searchButton, notifMenu, profileMenu, cartMenu);
+        HBox menu = new HBox(homeMenu, chatMenu, ordersMenu, searchBar, searchButton, notifMenu, profileMenu, cartMenu);
         menu.setAlignment(Pos.TOP_CENTER);
         // menu.setPadding(new Insets(5, 0, 0, 0));
         StackPane menuBar = new StackPane(navbarLabel, menu);
 
         VBox navbar = new VBox(brandLayout, menuBar);
+        navbar.setMinHeight(80);
         return navbar;
 
     }

@@ -11,10 +11,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.skin.LabeledSkinBase;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -104,15 +102,15 @@ public class SearchScene implements ShowScene{
         return productLayout;
     }
 
-    private static VBox showUserSearch(Stage stage, String filter, int id) throws SQLException{
+    private static VBox showUserSearch(Stage stage, String filter, int id) throws SQLException {
         List<User> users = UserController.getAllUsers();
         VBox profileLayout = new VBox();
         boolean userFound = false;
+    
         for (User user : users) {
             if (SearchEngine.containsSearchName(user.getName(), filter) || SearchEngine.containsSearchName(user.getUsername(), filter)) {
                 userFound = true;
                 if (user.getId() != id) {
-                    
                     ImageView profileLogo = imageSet.setImages(user.getPhotoFile(), 40, 40);
                     ImageView border = imageSet.setImages("/images/navbar/border.png", 40, 40);
                     StackPane imageCombine = new StackPane(profileLogo, border);
@@ -121,41 +119,47 @@ public class SearchScene implements ShowScene{
                     profileMenu.getStyleClass().add("navbarIcon");
                     profileMenu.setGraphic(imageCombine);
     
-                    profileMenu.setOnAction(e->{
+                    profileMenu.setOnAction(e -> {
                         try {
                             new ProfileScene(stage).show(user.getId(), id);
                         } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e1) {
                             e1.printStackTrace();
                         }
                     });
-        
+    
                     Label profileName = new Label(user.getName());
                     profileName.getStyleClass().add("productNameCart");
                     Label profileUser = new Label(user.getUsername());
                     profileUser.getStyleClass().add("sellerName");
                     Label gap = new Label();
                     gap.getStyleClass().add("gap2");
-                    
+    
                     VBox profileInfo = new VBox(profileName, profileUser);
                     profileInfo.setSpacing(10);
+                    profileInfo.setOnMouseClicked(e -> {
+                        try {
+                            new ProfileScene(stage).show(user.getId(), id);
+                        } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                    });
     
                     HBox profileBar = new HBox(10, profileMenu, profileInfo);
-                    // profileLayout = new VBox(gap, profileBar);
                     profileLayout.getChildren().addAll(gap, profileBar);
-                    
                 }
-                
-            }
-
-            if (!userFound){
-                ImageView notFoundImage = imageSet.setImages("/images/default/nullNotFound.png", 350, 345);
-                Label notfound = new Label();
-                notfound.setGraphic(notFoundImage);
-                HBox makeCenter = new HBox(notfound);
-                makeCenter.setPadding(new Insets(0, 0, 0, 223));
-                profileLayout = new VBox(makeCenter);
             }
         }
+    
+        if (!userFound) {
+            System.out.println("Halo");
+            ImageView notFoundImage = imageSet.setImages("/images/default/nullNotFound.png", 350, 345);
+            Label notfound = new Label();
+            notfound.setGraphic(notFoundImage);
+            HBox makeCenter = new HBox(notfound);
+            makeCenter.setPadding(new Insets(0, 0, 0, 223));
+            profileLayout = new VBox(makeCenter);
+        }
+    
         return profileLayout;
     }
 

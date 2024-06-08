@@ -10,6 +10,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -112,6 +113,7 @@ public class TransactionScene implements ShowScene{
                     if (empty) {
                         setGraphic(null);
                     } else {
+                        setAlignment(Pos.CENTER);
                         setGraphic(deleteButton);
                     }
                 }
@@ -140,7 +142,6 @@ public class TransactionScene implements ShowScene{
 
 
         //Main
-        Navbar navbar = new Navbar();
         VBox transactionRoot = new VBox(Navbar.getNavbar(stage, userId), table);
 
 
@@ -154,8 +155,4 @@ public class TransactionScene implements ShowScene{
     public void show() throws InterruptedException {
         throw new UnsupportedOperationException("Unimplemented method 'show'");
     }
-
-
-
-
 }

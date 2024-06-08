@@ -2,6 +2,7 @@ package llousty.Utils;
 
 import java.util.List;
 
+import llousty.Models.Cart;
 import llousty.Models.Product;
 
 public class RemoveIndex {
@@ -26,12 +27,18 @@ public class RemoveIndex {
     }
 
     public static List<Product> removeOne(List<Product> list, Product elementToRemove) {
-    int indexToRemove = list.indexOf(elementToRemove);
-
-    if (indexToRemove != -1) {
-        list.remove(indexToRemove);
+        int indexToRemove = list.indexOf(elementToRemove);
+        if (indexToRemove != -1) {
+            list.remove(indexToRemove);
+        }
+        return list;
     }
 
-    return list;
+    public static List<Cart> removeOne(List<Cart> list, Cart elementToRemove) {
+        int indexToRemove = list.indexOf(elementToRemove);
+        if (indexToRemove != -1) {
+            list.remove(indexToRemove);
+        }
+        return list;
     }
 }

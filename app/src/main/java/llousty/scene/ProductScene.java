@@ -9,7 +9,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -22,20 +24,22 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import llousty.App;
 import llousty.Abstract.ShowScene;
+import llousty.Models.Category;
 import llousty.Models.Comment;
 import llousty.Models.Product;
 import llousty.Models.User;
-import llousty.Models.Discount;
 import llousty.Utils.RateMaker;
 import llousty.Utils.imageSet;
 import llousty.components.Navbar;
 import llousty.controller.CommentsController;
 import llousty.controller.ProductController;
 import llousty.controller.UserController;
-import llousty.controller.DiscountController;
+import llousty.controller.CartController;
+import llousty.controller.CategoryController;
 
 public class ProductScene implements ShowScene{
-    private int count = 1; 
+    private int count = 1; // Jumlah produk yang akan dibeli
+        
 
     private Stage stage;
 
@@ -47,7 +51,7 @@ public class ProductScene implements ShowScene{
         User user = UserController.getUserById(userId);
         Product product = ProductController.getProductById(productId);
         List<Comment> comments = CommentsController.getAllCommentByProductId(productId);
-        List<Discount> discounts = DiscountController.getAllDiscountByProductId(productId);
+        List<Category> categorys = CategoryController.getAllCategoryByProductId(productId);
 
         ImageView productPhoto = imageSet.setImages(product.getProductPhoto(), 300, 500);
         productPhoto.setPreserveRatio(true);
@@ -56,17 +60,10 @@ public class ProductScene implements ShowScene{
 
         Label productName = new Label(product.getName());
         productName.getStyleClass().add("productName");
-        // ImageView star = imageSet.setImages("/images/product/image.png", 5, 5);
-        // HBox starBar = new HBox();
-        // for (int i = 0; i < 5; i++) {
-        //     double starCount = product.getRate() - i;
-        //     if (starCount > 0) {
-        //         starBar.getChildren().add(star);
-        //     }
-        // }
 
 
-        ImageView profileLogo = imageSet.setImages(user.getPhotoFile(), 40, 40);
+        User seller = UserController.getUserById(product.getSellerId());
+        ImageView profileLogo = imageSet.setImages(seller.getPhotoFile(), 40, 40);
         ImageView border = imageSet.setImages("/images/product/border.png", 40, 40);
         StackPane imageCombine = new StackPane(profileLogo, border);
         imageCombine.setAlignment(Pos.CENTER_LEFT);
@@ -75,9 +72,14 @@ public class ProductScene implements ShowScene{
         profileMenu.setGraphic(imageCombine);
         profileMenu.setOnAction(e->{
             //ke profile scene
+            try {
+                new ProfileScene(stage).show(product.getSellerId(), userId);
+            } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException
+                    | InterruptedException e1) {
+                e1.printStackTrace();
+            }
         });
 
-        User seller = UserController.getUserById(product.getSellerId());
         Label profileName = new Label();
         if (userId == product.getSellerId()) {
             profileName.setText(seller.getName() + "\nYou own this product");
@@ -88,7 +90,9 @@ public class ProductScene implements ShowScene{
 
         HBox sellerBox = new HBox(profileMenu, profileName);
 
-        Label rating = new Label(RateMaker.calculateRatingAverage(product.getTotalRate(), product.getRate()));
+        Label rating = new Label(RateMaker.calculateRatingAverage(product.getTotalRate(), product.getRate()) + "  (" + product.getTotalRate() + ")");
+
+        Label stockAvalible = new Label("Stock : " + product.getStock());
 
         TextArea descriptionText = new TextArea(product.getDescription());
         descriptionText.getStyleClass().add("descriptionText");
@@ -96,41 +100,22 @@ public class ProductScene implements ShowScene{
         descriptionText.setPrefWidth(400); // Mengatur lebar maksimum TextArea
         descriptionText.setEditable(false);
 
-        // GridPane gridPaneVariant = new GridPane();
-        // gridPaneVariant.setHgap(1);
-        // gridPaneVariant.setVgap(1);
-        // int column = 0;
-        // int row = 0;
         
 
-        Label discountLabel = new Label();
-        discountLabel.getStyleClass().add("variantLabel");
-        if (discounts.size() != 0) {
-            for (Discount discount : discounts) {
-                discountLabel.setText("Discount");
-                Label discountType = new Label(String.valueOf(discount.getDiscount()));
-                discountType.getStyleClass().add("variantType");
-                discountType.setPrefWidth(50);
-                discountType.setPrefHeight(20);
-                discountType.setOnMouseClicked(e->{
-                // productPhoto = imageSet.setImages(variant.getVariantPhoto(), 300, 500);
-            });
-
-
-
-                // gridPaneVariant.add(variantLabel, column, row);
-
-                // column++;
-                // if (column == 4) {
-                //     column = 0;
-                //     row++;
-                // }
-                // break;
-            }
-        }
-        else{
-            discountLabel.setText("no variant");
-        }
+        Label categoryLabel = new Label();
+        categoryLabel.getStyleClass().add("variantLabel");
+        categoryLabel.setText("category : " + product.getCategory());
+        // if (categorys.size() != 0) {
+        //     for (Category category : categorys) {
+        //         Label categoryType = new Label(String.valueOf(category.getCategory()));
+        //         categoryType.getStyleClass().add("variantType");
+        //         categoryType.setPrefWidth(50);
+        //         categoryType.setPrefHeight(20);
+        //     }
+        // }
+        // else{
+        //     categoryLabel.setText("No category available");
+        // }
 
 
         Label countLabel = new Label(String.valueOf(count));
@@ -158,18 +143,38 @@ public class ProductScene implements ShowScene{
 
         Label addToCart = new Label();
         addToCart.getStyleClass().add("addToCart");
-        // double price = product.getPrice() * count;
+        double price = product.getPrice() * count;
         addToCart.setText("Add to Cart");
 
-
-
-
-
-        VBox information = new VBox(productName, sellerBox, rating, descriptionText, discountLabel, quantity, addToCart);
+        addToCart.setOnMouseClicked(e -> {
+            if (userId == product.getSellerId()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Can't buy your own product");
+                alert.setHeaderText(null);
+                alert.setContentText("You can't buy your own product.");
+                alert.showAndWait();
+            }
+            else if (product.getStock() < count) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Insufficient Stock");
+                alert.setHeaderText(null);
+                alert.setContentText("The product stock is not enough to fulfill your request.");
+                alert.showAndWait();
+            }
+            else{
+                CartController.addCart(productId, userId, product.getCategory(), count, price);
+                try {
+                    new CartScene(stage).show(userId);
+                } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException
+                        | InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
         
-        
+    
 
-
+        VBox information = new VBox(productName, sellerBox, rating, stockAvalible, descriptionText, categoryLabel, quantity, addToCart);
 
         HBox element1 = new HBox(productPhoto, information);
         element1.setSpacing(10);
@@ -178,7 +183,7 @@ public class ProductScene implements ShowScene{
 
         //COMENT
 
-        Label labelTitleComments = new Label("Comment");
+        Label labelTitleComments = new Label("Comments");
         labelTitleComments.getStyleClass().add("labelTitleComments");
         labelTitleComments.setPadding(new Insets(10, 0, 0, 0));
 
@@ -189,6 +194,7 @@ public class ProductScene implements ShowScene{
             for (Comment comment : comments) {
                 User commentUser = UserController.getUserById(comment.getUserId());
                 Label labelName = new Label(commentUser.getName());
+                labelName.getStyleClass().add("userKomen");
 
                 Label labelText = new Label(comment.getText());
                 VBox vBoxComment = new VBox(labelName, labelText);
@@ -201,10 +207,12 @@ public class ProductScene implements ShowScene{
 
         
         Label labelPostComment = new Label("Write a comment");
+        labelPostComment.setStyle( "-fx-text-fill: #9f4168; -fx-font-size: 13px;");
         TextField textFieldComment = new TextField();
         textFieldComment.setPromptText("Write your comment");
         textFieldComment.setPrefHeight(50);
-        Button buttonPostComment = new Button("Add");
+        Button buttonPostComment = new Button("Sent comment");
+        buttonPostComment.getStyleClass().add("addComment");
         VBox vBoxPostComment = new VBox(labelPostComment, textFieldComment, buttonPostComment);
         vBoxPostComment.setSpacing(5);
 
@@ -238,7 +246,6 @@ public class ProductScene implements ShowScene{
         ScrollPane scrollPane = new ScrollPane(vBoxMainContent);
         scrollPane.setFitToWidth(true);
         
-        Navbar navbar = new Navbar();
         VBox profileRoot = new VBox(Navbar.getNavbar(stage, userId), scrollPane);
 
 

@@ -23,8 +23,7 @@ public class UserController extends DbConfig {
         try {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, PasswordHasher.doHashing(password)); // menghasing inputan dan memngecek
-                                                                                // apakah sama di database
+            preparedStatement.setString(2, PasswordHasher.doHashing(password));
             try (ResultSet login = preparedStatement.executeQuery()) {
                 if (login.next()) {
                     int id = login.getInt("id");
@@ -32,12 +31,10 @@ public class UserController extends DbConfig {
                     return user;
                 }
             }
-            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
-
     }
 
     // READ USERNAME OR EMAIL THAT THEY ALREADY TAKEN
@@ -87,7 +84,7 @@ public class UserController extends DbConfig {
         if (selectedFile != null) {
             try {
                 getConnection();
-                String query = "UPDATE user SET name=?, username=?, password=?, email=?, alamat=?, phone=?, gender=?, photo_profile=? WHERE id=?";
+                String query = "UPDATE user SET name=?, username=?, password=?, email=?, alamat=?, phone=?, gender=?, photo_profile=?, sellerMode=?, totalNotif=?, listChatId=? WHERE id=?";
                 preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, name);
                 preparedStatement.setString(2, username);
@@ -151,6 +148,40 @@ public class UserController extends DbConfig {
             return false;
         }
     }
+
+    //UPDATE
+    public static boolean updateTotalNotif(int id, int totalNotif) {
+        try {
+            getConnection();
+            String query = "UPDATE user SET totalNotif = ? WHERE id = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, totalNotif);
+            preparedStatement.setInt(2, id);
+            int rowsUpdated = preparedStatement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // UPDATE
+    public static boolean updateUserSellerMode(int id, String sellerMode) {
+        try {
+            getConnection();
+            String query = "UPDATE user SET sellerMode=? WHERE id=?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, sellerMode);
+            preparedStatement.setInt(2, id);
+            int rowsUpdated = preparedStatement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
     
 
     // READ
@@ -223,6 +254,43 @@ public class UserController extends DbConfig {
             e.printStackTrace();
         }
         return users;
+    }
+
+
+    //READ
+    public static User getUserByName(String name) {
+        User user = null;
+        query = "SELECT * FROM user WHERE name=?";
+        try {
+            getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, name);
+            try (ResultSet userResultSet = preparedStatement.executeQuery()) {
+                while (userResultSet.next()) {
+                    int id = userResultSet.getInt("id");
+                    String username = userResultSet.getString("username");
+                    String password = userResultSet.getString("password");
+                    String email = userResultSet.getString("email");
+                    String alamat = userResultSet.getString("alamat");
+                    String phone = userResultSet.getString("phone");
+                    String gender = userResultSet.getString("gender");
+                    byte[] photoProfileByte = userResultSet.getBytes("photo_profile");
+                    ImageView photoProfile;
+                    if (photoProfileByte != null) {
+                        photoProfile = new ImageView(new Image(new ByteArrayInputStream(photoProfileByte)));
+                    } else {
+                        photoProfile = new ImageView("/images/default/nullProfile.jpg");
+                    }
+                    String sellerMode = userResultSet.getString("sellerMode");
+                    int totalNotif = userResultSet.getInt("totalNotif");
+                    String listChatId = userResultSet.getString("listChatId");
+                    user = new User(id, name, username, password, email, alamat, phone, gender, photoProfile, sellerMode, totalNotif, listChatId);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
 }

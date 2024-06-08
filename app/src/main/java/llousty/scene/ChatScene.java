@@ -25,12 +25,14 @@ import llousty.Abstract.ShowScene;
 import llousty.Models.Conversation;
 import llousty.Models.Message;
 import llousty.Models.User;
+import llousty.Utils.DateGenerator;
 import llousty.Utils.ParticipantFormat;
 import llousty.Utils.StringListConverter;
 import llousty.Utils.imageSet;
 import llousty.components.Navbar;
 import llousty.controller.ConversationController;
 import llousty.controller.MessageController;
+import llousty.controller.NotifController;
 import llousty.controller.UserController;
 
 public class ChatScene implements ShowScene{
@@ -50,14 +52,16 @@ public class ChatScene implements ShowScene{
         User mySelf = UserController.getUserById(userId);
         User target = UserController.getUserById(targerUserId);
         Conversation conversation = getFromDB(targerUserId, userId);
-        List<Integer> cek = StringListConverter.stringToListInt(conversation.getMessageIdList()); // output id antara chat
+        List<Integer> cek = StringListConverter.stringToListInt(conversation.getParticipantsId()); // output id antara chat
         List<Integer> cek2 = StringListConverter.stringToListInt(mySelf.getListChatId()); // output siapa saja yg pernah dichat
 
+        //UNTUK CEK APAKAH USER YANG DICHAT SUDAH PERNAH DICHAT
         boolean add = true;
         outerloop:
         for (Integer integer : cek) {
             if (integer == targerUserId) {
                 for (Integer integer2 : cek2) {
+                    System.out.println("yesss");
                     if (integer == integer2) {
                         add = false;
                         break outerloop;
@@ -65,34 +69,45 @@ public class ChatScene implements ShowScene{
                 }
             }
         }
+        //JIKA BELUM PERNAH DICHAT MAKA TAMBAHKAN
         if (add) {
         boolean isSuccesfullUpdated;
             try {
                 cek2.add(targerUserId);
                 String listChatId = StringListConverter.listIntToString(cek2);
-                // isSuccesfullUpdated = UserController.updateUser(userId, mySelf.getName(), mySelf.getUsername(), mySelf.getPassword(), 
-                //         mySelf.getEmail(), mySelf.getAlamat(), mySelf.getPhone(), mySelf.getGender(), 
-                //         mySelf.getPhotoFile(), mySelf.getSellerMode(), mySelf.getTotalNotif(), listChatId);
+                
                 isSuccesfullUpdated = UserController.updateUserListChatId(userId, listChatId);
                 if (isSuccesfullUpdated) {
                     new ChatScene(stage).show();
                 }
             } catch (Exception e) {
-                // TODO: handle exception
+                e.printStackTrace();
             }
         }
         
+
+        // Dapatkan listChatId dari target
+        List<Integer> targetChatIdList = StringListConverter.stringToListInt(target.getListChatId());
+
+        // Tambahkan userId ke dalam targetChatIdList jika belum ada
+        if (!targetChatIdList.contains(userId)) {
+            targetChatIdList.add(userId);
+            String targetListChatId = StringListConverter.listIntToString(targetChatIdList);
+            boolean isSuccesfullUpdatedTarget = UserController.updateUserListChatId(targerUserId, targetListChatId);
+            if (isSuccesfullUpdatedTarget) {
+                User user = UserController.getUserById(userId);
+                NotifController.addNotif("New Chat!", "Please check your Chat Menu, " + user.getName() + " is just sent a message to you!", targerUserId, DateGenerator.getCurrentDateTimeAsString(), "information");
+                System.out.println("Target listChatId updated successfully.");
+            } else {
+                System.out.println("Failed to update target listChatId.");
+            }
+        }
         
+
+
+
+
         List<Integer> listMessageId = StringListConverter.stringToListInt(conversation.getMessageIdList());
-
-        // List<Integer> listMessageId = ;
-
-        
-        System.out.println("List message id  : " + String.valueOf(StringListConverter.stringToListInt(conversation.getMessageIdList())));
-
-
-        // List<Chat> chats = ChatController.getAllChatByTargetId(targerUserId);
-
 
         ImageView profileLogo = imageSet.setImages(target.getPhotoFile(), 40, 40);
         ImageView border = imageSet.setImages("/images/product/border.png", 40, 40);
@@ -106,7 +121,6 @@ public class ChatScene implements ShowScene{
             //ke profile scene
             System.out.println("gg bang");
         });
-        System.out.println("ke sini");
 
 
         Label profileName = new Label(target.getName());
@@ -130,7 +144,6 @@ public class ChatScene implements ShowScene{
 
         if (listMessageId.size() > 0) {
             for (int messageId : listMessageId) {
-                System.out.println(listMessageId.size());
                 Message message = MessageController.getMessageByMessageId(messageId);
 
                 Label textTyped = new Label();
@@ -166,10 +179,12 @@ public class ChatScene implements ShowScene{
         }
 
         Label labelPostChat = new Label("Write a chat");
+        labelPostChat.setStyle( "-fx-text-fill: #9f4168; -fx-font-size: 13px;");
         TextField textFieldChat = new TextField();
         textFieldChat.setPromptText("Write your messeage");
         textFieldChat.setPrefHeight(50);
-        Button buttonPostChat = new Button("Add");
+        Button buttonPostChat = new Button("Send");
+        buttonPostChat.getStyleClass().add("sentChat");
         VBox vBoxPostChat = new VBox(labelPostChat, textFieldChat, buttonPostChat);
         vBoxPostChat.setSpacing(5);
 
@@ -200,7 +215,6 @@ public class ChatScene implements ShowScene{
                     
                     try {
                         isSuccesfullUpdated = ConversationController.updateConversation(conversationIdNew, conversationParticipantsIdNew, String.valueOf(listMessageId));
-                        System.out.println("isSuccesfullUpdated: "+isSuccesfullUpdated);
                         if (isSuccesfullUpdated) {
                             new ChatScene(stage).show(targerUserId, userId);
                             return;
@@ -208,12 +222,6 @@ public class ChatScene implements ShowScene{
                     } catch (SQLException | UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e1) {
                         e1.printStackTrace();
                     }
-                    
-
-
-
-
-
                 }
             }
         });
@@ -223,8 +231,6 @@ public class ChatScene implements ShowScene{
 
 
         VBox chatRoot = new VBox(Navbar.getNavbar(stage, userId), profileBar, vBoxMainContent);
-
-
         Scene scene = new Scene(chatRoot, App.getWidth(), App.getHeight());
         scene.getStylesheets().add("styles.css");
         stage.setScene(scene);

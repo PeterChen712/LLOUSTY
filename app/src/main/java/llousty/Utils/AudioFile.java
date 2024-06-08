@@ -10,8 +10,8 @@ public class AudioFile {
         AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
         Clip clip = AudioSystem.getClip();
         clip.open(audioStream);
+        Thread.sleep(clip.getMicrosecondLength() / 3000);
         clip.start();
-        Thread.sleep(clip.getMicrosecondLength() / 1000);
     }
 }
 

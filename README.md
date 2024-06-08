@@ -83,5 +83,54 @@ LLOUSTY, yang merupakan kepanjangan dari "Marvellous Beauty" yang berarti "Kecan
 ![Notif Scene (Seller Mode)](https://github.com/PeterChen712/Grocery-Shop/blob/fa1df36aa5524770c65aff579f3a2194af5721ce/readme/notifseller.png)
 
 ## Pengujian Aplikasi
-
 Terdapat daftar pengujian yang dilakukan pada aplikasi, dengan deskripsi pengujian, hasil yang diharapkan, dan hasil dari pengujian tersebut.
+
+| NO | Deskripsi Pengujian | Hasil yang diharapkan | Hasil |
+|----|-----------------------|------------------------|-------|
+| 1  | Login dengan username atau password salah | Sistem menampilkan pesan kesalahan yang sesuai | Berhasil |
+| 2  | Login tanpa mengisi username atau password | Aplikasi menampilkan atau pesan kesalahan yang sesuai | Berhasil |
+| 3  | Login dengan username dan password benar | Aplikasi berhasil masuk ke halaman utama pengguna | Berhasil |
+| 4  | Mengklik hyperlink "Register" pada halaman login | Aplikasi berpindah ke halaman registrasi | Berhasil |
+| 5  | Registrasi dengan semua data benar | Sistem berhasil membuat akun baru dan mengarahkan pengguna ke halaman login | Berhasil |
+| 6  | Registrasi tanpa mengisi salah satu field wajib (misalnya, username atau password) | Sistem menampilkan pesan kesalahan bahwa field wajib harus diisi | Berhasil |
+| 7  | Registrasi dengan password yang tidak memenuhi kriteria (misalnya, terlalu pendek) | Sistem menampilkan pesan kesalahan bahwa password harus memenuhi kriteria yang ditentukan | Berhasil |
+| 9  | Mengklik hyperlink "Login" pada halaman registrasi | Aplikasi berpindah ke halaman login | Berhasil |
+| 10 | Memuat halaman HomeScene dengan pengguna yang benar | Halaman HomeScene menampilkan informasi pengguna dengan benar | Berhasil |
+| 11 | Mengklik kategori "Make Up" pada halaman HomeScene | Halaman menampilkan produk dalam kategori "Make Up" | Berhasil |
+| 12 | Mengklik kategori "Skin Care" pada halaman HomeScene | Halaman menampilkan produk dalam kategori "Skin Care" | Berhasil |
+| 13 | Mengklik kategori "Fragrance" pada halaman HomeScene | Halaman menampilkan produk dalam kategori "Fragrance" | Berhasil |
+| 14 | Menampilkan elemen visual seperti header, kategori, produk, dan navbar | Semua elemen tampil sesuai dengan desain dalam styles.css | Berhasil |
+| 15 | Mengklik produk dalam kategori | Halaman berpindah ke detail produk yang dipilih | Berhasil |
+| 16 | Memuat halaman SearchScene dengan data produk yang benar | Halaman SearchScene menampilkan produk yang sesuai dengan pencarian | Berhasil |
+| 17 | Memuat halaman SearchScene dengan data pengguna yang benar | Halaman SearchScene menampilkan pengguna yang sesuai dengan pencarian | Berhasil |
+| 18 | Mengklik tab "Product" pada halaman SearchScene | Halaman menampilkan hasil pencarian produk yang sesuai | Berhasil |
+| 19 | Mengklik tab "User" pada halaman SearchScene | Halaman menampilkan hasil pencarian pengguna yang sesuai | Berhasil |
+| 20 | Mengklik produk yang muncul dalam hasil pencarian | Halaman berpindah ke profil pengguna yang dipilih | Berhasil |
+| 21 | Mengklik pengguna yang muncul dalam hasil pencarian | Sistem menampilkan profil pengguna yang dipilih | Berhasil |
+| 22 | Memuat halaman ChatScene dengan percakapan yang benar | Halaman ChatScene menampilkan percakapan yang sesuai dengan pengguna target | Berhasil |
+| 23 | Mengirim pesan baru dalam percakapan | Pesan baru ditambahkan ke percakapan dan ditampilkan di halaman ChatScene | Berhasil |
+| 24 | Memuat halaman ChatScene tanpa percakapan | Halaman ChatScene menampilkan pesan "No Chat" | Berhasil |
+| 25 | Memuat halaman TransactionScene dengan transaksi yang benar | Halaman TransactionScene menampilkan transaksi yang sesuai dengan userId | Berhasil |
+| 26 | Menampilkan transaksi dengan format mata uang yang benar | Total Cost diformat dengan mata uang Rp | Berhasil |
+| 27 | Menampilkan informasi transaksi dengan benar | Semua kolom menampilkan informasi yang benar (Date, Total Cost, Payment Method, Product, Seller, Status) | Berhasil |
+| 28 | Pengujian tampilan awal profil pengguna | Sistem dapat menampilkan profil pengguna dengan benar, termasuk foto profil, informasi pribadi, dan detail alamat | Berhasil |
+| 29 | Pengujian kemampuan edit informasi pengguna| Dapat memberikan informasi pengguna sesuai dengan perubahan yang dibuat| Berhasil |
+| 30 | Pengujian upload foto profil pengguna | Sistem dapat mengunggah dan menampilkan foto profil pengguna dengan benar | Berhasil |
+| 31 | Pengujian aktivasi mode seller jika informasi yang diperlukan sudah diisi | Sistem dapat mengaktifkan mode penjual jika alamat, nomor telepon, dan jenis kelamin telah diisi | Berhasil |
+| 32 | Menjalankan fungsi show pada kelas CartScene dengan userId yang tidak memiliki item di keranjang | Sistem menampilkan pesan peringatan "Cart is Empty" dan menginstruksikan pengguna untuk menambahkan item ke keranjang | Berhasil |
+| 33 | Menjalankan fungsi show dan mencoba memilih metode pembayaran | Sistem menampilkan tampilan sesuai dengan metode pembayaran yang dipilih dan memasukkan hanya satu metode yang dipilih pada satu waktu (E-Money, Virtual Account, Credit Card, COD) | Berhasil |
+| 34 | Menjalankan fungsi show dan memilih item dalam keranjang dengan menggunakan checkbox | Sistem memperbaharui subtotal dan total pembayaran sesuai dengan item yang dipilih | Berhasil |
+| 35 | Menampilkan daftar pengiriman dengan detail (tanggal, judul, isi) | Sistem dapat menampilkan daftar notifikasi beserta detailnya dengan benar | Berhasil |
+| 36 | Membuka notifikasi untuk melihat informasi lebih lanjut | Pengguna dapat membuka notifikasi dan melihat informasi lebih lanjut | Berhasil |
+| 37 | Tata letak notifikasi responsif dan mudah dibaca | Notifikasi ditampilkan dengan tata letak responsif dan mudah dibaca | Berhasil |
+| 38 | Menampilkan detail produk (foto, nama, penjual, rating, deskripsi, varian, tombol keranjang) | Sistem dapat menampilkan semua detail produk dengan benar | Berhasil |
+| 39 | Menambah jumlah produk yang akan dibeli | Pengguna dapat menambah jumlah produk yang akan dibeli dengan benar | Berhasil |
+| 40 | Menambah komentar pada produk | Pengguna dapat menambah komentar pada produk dengan benar | Berhasil |
+| 41 | Menampilkan layer loading selama detik | Layer loading muncul selama 1 detik sebelum konten utama aplikasi ditampilkan | Berhasil |
+| 42 | Menampilkan konten utama aplikasi setelah layer loading selesai | Konten utama aplikasi ditampilkan dengan benar setelah layer loading selesai | Berhasil |
+| 43 | Menggunakan konten utama setelah ditampilkan | Pengguna dapat menggunakan konten utama tanpa gangguan setelah konten utama ditampilkan | Berhasil |
+| 44 | Menambah produk baru dengan detail lengkap (nama, harga, stok, kategori, deskripsi, foto, diskon) | Produk berhasil ditambahkan dengan detail yang lengkap| Berhasil |
+| 45 | Menampilkan produk yang ditambahkan di halaman Your Product | Produk yang baru ditambahkan muncul di halaman Your Product | Berhasil |
+| 46  | Menampilkan produk yang ditambahkan di halaman Home | Produk yang baru ditambahkan muncul di halaman Home | Berhasil |
+| 47  | Menghapus produk di halaman Your Product | Produk yang dihapus tidak lagi muncul di daftar Your Product | Berhasil |
+| 48  | Mencatat riwayat penjualan produk di halaman History | Produk yang terjual tercatat dengan benar di halaman History | Berhasil |

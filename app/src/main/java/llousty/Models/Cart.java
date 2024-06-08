@@ -3,15 +3,14 @@ package llousty.Models;
 public class Cart extends Model{
     int productId;
     int userId;
-    int variantId;
+    String category;
     int totalAmount;
     double price;
-    
-    public Cart(int id, int productId, int userId, int variantId, int totalAmount, double price) {
+    public Cart(int id, int productId, int userId, String category, int totalAmount, double price) {
         super(id);
         this.productId = productId;
         this.userId = userId;
-        this.variantId = variantId;
+        this.category = category;
         this.totalAmount = totalAmount;
         this.price = price;
     }
@@ -27,11 +26,11 @@ public class Cart extends Model{
     public void setUserId(int userId) {
         this.userId = userId;
     }
-    public int getVariantId() {
-        return variantId;
+    public String getCategory() {
+        return category;
     }
-    public void setVariantId(int variantId) {
-        this.variantId = variantId;
+    public void setCategory(String category) {
+        this.category = category;
     }
     public int getTotalAmount() {
         return totalAmount;

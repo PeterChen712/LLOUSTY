@@ -45,10 +45,10 @@ public class LoginScene implements ShowScene{
         // Text text = new Text("Fill your beauty with LLOUSTY");
         // text.getStyleClass().add("text");
 
-        Label labelLogin = new Label("Login");
+        Label labelLogin = new Label("Sign In");
         labelLogin.getStyleClass().add("labelLoginAndRegist");
 
-        Label status = new Label("Anda Belum Login");
+        Label status = new Label("");
         status.getStyleClass().add("textStatus");
 
         TextField inUser = new TextField();
@@ -59,13 +59,13 @@ public class LoginScene implements ShowScene{
         inPass.setPromptText("Password");
         inPass.getStyleClass().add("textfield");
 
-        Button btnLogin = new Button("login");
+        Button btnLogin = new Button("Login");
         btnLogin.getStyleClass().add("buttonLoginandRegist");
         btnLogin.setOnAction(e -> {
             String username = inUser.getText();
             String password = inPass.getText();
             if (username.isEmpty() || password.isEmpty()) {
-                status.setText("username dan password harus diisi");
+                status.setText("Username or password is empty");
                 return;
             }
 
@@ -80,7 +80,7 @@ public class LoginScene implements ShowScene{
                     e1.printStackTrace();
                 }
             } else {
-                status.setText("username atau password salah");
+                status.setText("Username or password is wrong");
             }
         });
 
@@ -106,7 +106,7 @@ public class LoginScene implements ShowScene{
         hBox.setAlignment(Pos.CENTER);
         VBox vBox = new VBox(15);
         vBox.setAlignment(Pos.CENTER);
-        vBox.getChildren().addAll(labelLogin, status, inUser, inPass, btnLogin, hBox);
+        vBox.getChildren().addAll(status,labelLogin, inUser, inPass, btnLogin, hBox);
         HBox hBox2 = new HBox(vBox);
         // hBox2.setAlignment(Pos.CENTER);
 
@@ -123,7 +123,6 @@ public class LoginScene implements ShowScene{
         Scene scene = new Scene(stackPane, App.getWidth(), App.getHeight());
         scene.getStylesheets().add("styles.css");
         stage.setScene(scene);
-        stage.setTitle("Login");
         stage.show();
     }
 }

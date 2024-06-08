@@ -1,25 +1,20 @@
 package llousty.controller;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import llousty.Models.Discount;
+import llousty.Models.Category;
 import llousty.config.DbConfig;
 
-public class DiscountController extends DbConfig{
+public class CategoryController extends DbConfig{
     
     //CREATE
-    public static boolean addDiscount(int discount, int productId){
-        query = "INSERT INTO discount (discount, productId) VALUES (?, ?)";
+    public static boolean addCategory(String category, int productId) {
+        String query = "INSERT INTO category (category, productId) VALUES (?, ?)";
         try {
             getConnection();
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, discount);
+            preparedStatement.setString(1, category);
             preparedStatement.setInt(2, productId);
             preparedStatement.executeUpdate();
             return true;
@@ -30,9 +25,9 @@ public class DiscountController extends DbConfig{
     }
 
     //READ: for product scene
-    public static List<Discount> getAllDiscountByProductId(int productId){
-        List<Discount> discounts = new ArrayList<>();
-        query = "SELECT * FROM discount WHERE productId=?";
+    public static List<Category> getAllCategoryByProductId(int productId) {
+        List<Category> categories = new ArrayList<>();
+        String query = "SELECT * FROM category WHERE productId=?";
         try {
             getConnection();
             preparedStatement = connection.prepareStatement(query);
@@ -40,33 +35,33 @@ public class DiscountController extends DbConfig{
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                int discount = resultSet.getInt("discount");
-                Discount discountResult = new Discount(id, discount, productId);
-                discounts.add(discountResult);
+                String category = resultSet.getString("category");
+                Category categoryResult = new Category(id, category, productId);
+                categories.add(categoryResult);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return discounts;
+        return categories;
     }
 
-    //READ : for cart scene
-    public static Discount getDiscountById(int id){
-        Discount discount = null;
-        query = "SELECT * FROM discount WHERE id=?";
+    //READ: for cart scene
+    public static Category getCategoryById(int id) {
+        Category category = null;
+        String query = "SELECT * FROM category WHERE id=?";
         try {
             getConnection();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                int discountTotal = resultSet.getInt("discount");
+                String categoryName = resultSet.getString("category");
                 int productId = resultSet.getInt("productId");
-                discount = new Discount(id, discountTotal, productId);
+                category = new Category(id, categoryName, productId);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return discount;
+        return category;
     }
 }
