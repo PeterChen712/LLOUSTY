@@ -48,7 +48,7 @@ public class App extends Application {
         loadingScene.show();
 
         LoginScene firstScene = new LoginScene(primaryStage);
-        // firstScene.show();
+        firstScene.show();
         HomeScene homeScene = new HomeScene(primaryStage);
         // homeScene.show(11);
 
